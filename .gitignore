@@ -1,2 +1,6 @@
 .vscode
-src/Main.exe
+Main.exe
+Main.ilk
+Main.obj
+Main.pdb
+vc140.pdb
