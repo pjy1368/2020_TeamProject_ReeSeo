@@ -1,6 +1,1 @@
-﻿  Account.cpp
-C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\Account.cpp(3,15): error C2011: 'Account': 'class' 형식 재정의
-C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\Account.h(2): message : 'Account' 선언을 참조하십시오.
-  Main.cpp
-  Test.cpp
-  코드를 생성하고 있습니다...
+﻿  2020_TeamProject_ReeSeo.vcxproj -> C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\x64\Debug\2020_TeamProject_ReeSeo.exe

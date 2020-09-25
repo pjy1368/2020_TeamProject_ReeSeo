@@ -1,20 +1,23 @@
 #include <filesystem>
 #include <iostream>
 #include <string>
+#include "Account.h"
 
 namespace fs = std::filesystem;
 using namespace std;
 
 int main() {
-	if (!fs::exists("./user")) {
-		cout << "계정을 새로 만드시겠습니까? (yes or no) : ";
-
+	string path = "./user";
+	Account* account = new Account();
+	if (account->isMember(path)) {
+		cout << "계정을 새로 만드시겠습니까? yes or no";
 		string ans;
 		cin >> ans;
 
 		if (ans == "yes") {
-			fs::create_directory("./user");
+			account->create(path);
 		}
+
 	}
 	else {
 		cout << "1. 계정 초기화\n";
@@ -24,7 +27,7 @@ int main() {
 		cin >> ans;
 
 		if (ans == "1") {
-			fs::remove("./user");
+			account->clear(path);
 		}
 		else if (ans == "2") {
 

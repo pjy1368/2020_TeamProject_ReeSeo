@@ -1,4 +1,10 @@
 #pragma once
+#include <filesystem>
+#include <iostream>
+#include <string>
+
+
+using namespace std;
 
 class Account {
 private:
@@ -10,8 +16,8 @@ private:
 
 public:
 	Account();
-	void isMember();
-	void clear();
-	void create();
-	void modify();
+	bool isMember(string path);
+	void create(string path);
+	void clear(string path);
+	//void modify();
 };
