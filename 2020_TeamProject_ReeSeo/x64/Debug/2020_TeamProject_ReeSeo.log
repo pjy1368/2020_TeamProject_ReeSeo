@@ -1,0 +1,10 @@
+﻿  Main.cpp
+  The contents of <filesystem> are available only with C++17 or later.
+C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\Main.cpp(5,21): error C2039: 'filesystem': 'std'의 멤버가 아닙니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\string(24): message : 'std' 선언을 참조하십시오.
+C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\Main.cpp(5,31): error C2878: 'filesystem': 같은 이름을 가진 네임스페이스 또는 클래스가 없습니다.
+C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\Main.cpp(9,5): error C2653: 'fs': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\Main.cpp(9,11): error C3861: 'exists': 식별자를 찾을 수 없습니다.
+C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\Main.cpp(16,24): error C2653: 'fs': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\Main.cpp(16,8): error C3861: 'create_directory': 식별자를 찾을 수 없습니다.
+C:\Users\LG\Desktop\Projects\2020-TeamProject-ReeSeo\2020_TeamProject_ReeSeo\Main.cpp(27,14): error C2653: 'fs': 클래스 또는 네임스페이스 이름이 아닙니다.

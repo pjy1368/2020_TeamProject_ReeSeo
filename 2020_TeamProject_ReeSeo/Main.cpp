@@ -5,6 +5,8 @@
 namespace fs = std::filesystem;
 using namespace std;
 
+// 테스트 주석 추가
+
 int main() {
 	if (!fs::exists("./user")) {
 		cout << "계정을 새로 만드시겠습니까? (yes or no) : ";
