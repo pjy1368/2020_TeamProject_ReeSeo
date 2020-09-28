@@ -1,4 +1,3 @@
-import os
 from Account import Account
 
 account = Account()
