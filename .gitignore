@@ -19,3 +19,4 @@ Project11.sln
 /.vs/2020-TeamProject-ReeSeo/v16/Browse.VC.opendb
 /.vs/2020-TeamProject-ReeSeo/v16/Browse.VC.db-wal
 /.vs/2020-TeamProject-ReeSeo/v16/Browse.VC.db-shm
+/src/__pycache__
