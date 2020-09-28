@@ -18,6 +18,22 @@ class Account:
 
         filepath = os.path.join("./user", "profile.txt")
         f = open(filepath, "w")
+
+        name = input("Name : ")
+        f.write(name + "\n")
+
+        sex = input("Sex : ")
+        f.write(sex + "\n")
+
+        age = input("Age : ")
+        f.write(age + "\n")
+
+        height = input("Height : ")
+        f.write(height + "\n")
+
+        weight = input("Weight : ")
+        f.write(weight + "\n")
+
         f.close
 
     # clear account.
