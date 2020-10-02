@@ -37,7 +37,7 @@ class Account:
 
         f.close()
 
-    # clear account.
+    # Clear account.
     def clear(self):
         shutil.rmtree("./user")
 
