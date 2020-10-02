@@ -2,11 +2,12 @@ import os
 import shutil
 
 class Account:
-    name = None
-    sex = None
-    age = None
-    height = None
-    weight = None
+    def __init__(self):
+        self.name = None
+        self.sex = None
+        self.age = None
+        self.height = None
+        self.weight = None
 
     # Does the account exist?
     def isMember(self):
