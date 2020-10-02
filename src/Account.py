@@ -35,7 +35,7 @@ class Account:
         weight = input("Weight : ")
         f.write(weight + "\n")
 
-        f.close
+        f.close()
 
     # clear account.
     def clear(self):
