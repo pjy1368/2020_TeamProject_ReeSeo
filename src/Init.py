@@ -9,13 +9,12 @@ def login(account):
             account.clear()
             return False
         elif sel == "2":
-            print("Move to main menu")
             return True
         else:
             print("Invalid input")
     else:
         print("1. Create account")
-        print("2. Move to title menu")
+        print("2. Move to start screen")
 
         sel = input("=> ")
 
@@ -23,7 +22,6 @@ def login(account):
             account.create()
             return True
         elif sel == "2":
-            print("Move to start screen")
             return False
         else:
             print("Invalid input")
