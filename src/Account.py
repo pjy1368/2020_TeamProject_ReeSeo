@@ -17,8 +17,8 @@ class Account:
     def create(self):
         os.mkdir("./user")
 
-        filepath = os.path.join("./user", "profile.txt")
-        f = open(filepath, "w")
+        filePath = os.path.join("./user", "profile.txt")
+        f = open(filePath, "w")
 
         name = input("Name : ")
         f.write(name + "\n")
@@ -41,3 +41,12 @@ class Account:
     def clear(self):
         shutil.rmtree("./user")
 
+    def revise(self):
+        print()
+
+    def view(self):
+        filePath = os.path.join("./user", "profile.txt")
+        f = open(filePath, 'r')
+        for s in f:
+            print(s, end='')
+        f.close()
