@@ -15,7 +15,6 @@ def menu(account):
             while(True):
                 if viewAndModifyProfile(account):
                     break
-            
         elif sel == '2':
             viewAndModifyListOfExercise(account)
         elif sel == '3':
@@ -44,6 +43,11 @@ def viewAndModifyProfile(account):
         return True
 
     list = str.split(" ")
+
+    for i in list:
+        if i < '1' or i > '6':
+            return False
+            
     account.revise(list)
 
 def viewAndModifyListOfExercise(account):

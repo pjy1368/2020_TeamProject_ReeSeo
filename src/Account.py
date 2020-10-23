@@ -10,19 +10,29 @@ class Account:
         self.weight = None
         self.currentTime = None
 
+    def init(self):
+        filePath = os.path.join("./user", "profile.txt")
+        f = open(filePath, "r")
+        s = f.readlines()
+
+        self.name = s[0].split('\n')[0]
+
+        self.gender = s[1].split('\n')[0]
+
+        self.birth = s[2].split('\n')[0]
+
+        self.height = s[3].split('\n')[0].split(' ')[0]
+
+        self.weight = s[4].split('\n')[0].split(' ')[0]
+
+        self.currentTime = s[5].split('\n')[0]
+
+        f.close()
+
     # Does the account exist?
     def isMember(self):
         if os.path.isdir("./user"):
-            filePath = os.path.join("./user", "profile.txt")
-            f = open(filePath, "r")
-            s = f.readlines()
-
-            self.name = s[0]
-            self.gender = s[1]
-            self.birth = s[2]
-            self.height = s[3]
-            self.weight = s[4]
-            self.currentTime = s[5]
+            self.init()
 
         return os.path.isdir("./user")
 
@@ -35,29 +45,24 @@ class Account:
 
         name = input("Enter name : ")
         f.write(name + "\n")
-        self.name = name
 
         gender = input("Enter gender : ")
         f.write(gender + "\n")
-        self.gender = gender
 
         birth = input("Enter the date of birth (YYYY-MM-DD) : ")
         f.write(birth + "\n")
-        self.birth = birth
 
         height = input("Enter height : ")
         f.write(height + " (cm)\n")
-        self.height = height
 
         weight = input("Enter weight : ")
         f.write(weight + " (kg)\n")
-        self.weight = weight
 
         currentTime = input("Enter current time : ")
         f.write(currentTime + "\n")
-        self.currentTime = currentTime
 
         f.close()
+        self.init()
 
     # Clear account.
     def clear(self):
@@ -114,11 +119,11 @@ class Account:
         filePath = os.path.join("./user", "profile.txt")
         f = open(filePath, 'r')
 
-        print("1. Name : " + f.readline())
-        print("2. Gender : " + f.readline())
-        print("3. Birth : " + f.readline())
-        print("4. Height : " + f.readline())
-        print("5. Weight : " + f.readline())
-        print("6. Current time : " + f.readline())
+        print("1. Name : " + self.name + "\n")
+        print("2. Gender : " + self.gender + "\n")
+        print("3. Birth : " + self.birth + "\n")
+        print("4. Height : " + self.height + " (cm)\n")
+        print("5. Weight : " + self.weight + " (kg)\n")
+        print("6. Current time : " + self.currentTime + "\n")
 
         f.close()
