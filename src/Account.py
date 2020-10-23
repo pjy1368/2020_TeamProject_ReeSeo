@@ -95,10 +95,9 @@ class Account:
         
         # file clear
         f.close()
-        self.clear()
+        os.remove(filePath)
 
         # file rewrite
-        os.mkdir("./user")
         f = open(filePath, 'w')
 
         f.write(self.name + "\n")
