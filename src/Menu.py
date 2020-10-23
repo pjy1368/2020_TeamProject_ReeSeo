@@ -45,9 +45,10 @@ def viewAndModifyProfile(account):
     list = str.split(" ")
 
     for i in list:
+        if len(i) >= 2:
+            return False
         if i < '1' or i > '6':
             return False
-            
     account.revise(list)
 
 def viewAndModifyListOfExercise(account):
