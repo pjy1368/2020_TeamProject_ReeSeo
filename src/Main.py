@@ -3,6 +3,9 @@ from StartScreen import startScreen
 from Init import login
 from Menu import menu
 
+print(1 == True)
+import os
+print(os.getcwd())
 account = Account()
 
 while(True):
@@ -11,6 +14,7 @@ while(True):
     if not login(account):
         continue
     else:
-        menu(account)
-        
-    break
+        if menu(account):
+            break
+        else:
+            continue 
