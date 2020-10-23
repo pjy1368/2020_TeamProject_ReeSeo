@@ -16,15 +16,10 @@ class Account:
         s = f.readlines()
 
         self.name = s[0].split('\n')[0]
-
         self.gender = s[1].split('\n')[0]
-
         self.birth = s[2].split('\n')[0]
-
-        self.height = s[3].split('\n')[0].split(' ')[0]
-
-        self.weight = s[4].split('\n')[0].split(' ')[0]
-
+        self.height = s[3].split('\n')[0]
+        self.weight = s[4].split('\n')[0]
         self.currentTime = s[5].split('\n')[0]
 
         f.close()
@@ -53,10 +48,10 @@ class Account:
         f.write(birth + "\n")
 
         height = input("Enter height : ")
-        f.write(height + " (cm)\n")
+        f.write(height + "\n")
 
         weight = input("Enter weight : ")
-        f.write(weight + " (kg)\n")
+        f.write(weight + "\n")
 
         currentTime = input("Enter current time : ")
         f.write(currentTime + "\n")
@@ -108,8 +103,8 @@ class Account:
         f.write(self.name + "\n")
         f.write(self.gender + "\n")
         f.write(self.birth + "\n")
-        f.write(self.height + " (cm)\n")
-        f.write(self.weight + " (kg)\n")
+        f.write(self.height + "\n")
+        f.write(self.weight + "\n")
         f.write(self.currentTime + "\n")
 
         f.close()
