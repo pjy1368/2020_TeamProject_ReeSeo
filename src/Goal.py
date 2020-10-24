@@ -25,7 +25,7 @@ class Goal:
             print("<Setting goal>")
             print("Enter the goal term : ")
             term = input("(Enter a natural number from 1 to 30 for the goal term)")
-            if (type(term) is int):
+            if (type(term) is int and term > 0):
                 if (term >= 1 and term <= 30):
                     f.write(term + "\n")
                 else:
