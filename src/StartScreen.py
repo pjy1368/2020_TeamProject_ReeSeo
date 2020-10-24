@@ -1,6 +1,5 @@
 import ctypes
 import os
-import sys
 
 def gotoxy(x,y):
     return ctypes.windll.kernel32.SetConsoleCursorPosition(ctypes.windll.kernel32.GetStdHandle(-11),(((y&0xFFFF)<<0x10)|(x&0xFFFF)))
