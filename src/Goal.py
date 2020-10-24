@@ -13,6 +13,7 @@ class Goal:
             self.term = None
             self.calrories = None
 
+    # Does the goal exist?
     def isMember(self):
         return os.path.isfile("./user/goal.txt")
 
@@ -20,16 +21,21 @@ class Goal:
     def setGoal(self):
         filePath = os.path.join("./user", "goal.txt")
         f = open(filePath, "w")
-
-        print("<Setting goal>")
-        print("Enter the goal term : ")
-        term = input("(Enter a natural number from 1 to 30 for the goal term)")
-        f.write(term + "\n")
+        while True:
+            print("<Setting goal>")
+            print("Enter the goal term : ")
+            term = input("(Enter a natural number from 1 to 30 for the goal term)")
+            if (type(term) is int):
+                if (term >= 1 and term <= 30):
+                    f.write(term + "\n")
+                else:
+                    print("Enter a natural number from 1 to 30 for the goal term.")
+            else:
+                print("Term must be entered as a natural number.")
 
         print("<Setting goal>")
         print("The maximum daily calorie is" + "AAA" + " kcal. Please enter the goal daily calorie.") # AAA = kg * 10 * x kcal
         calories = input("The integer part of the value must be at least 2 digits and the decimal part must be 2 digits. At this point, the integer part must be positive.")
-        
         f.write(calories + "\n")
 
         f.close()
