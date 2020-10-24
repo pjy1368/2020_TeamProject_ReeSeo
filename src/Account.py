@@ -1,5 +1,6 @@
 import os
 import shutil
+from Goal import Goal
 
 class Account:
     def __init__(self):
@@ -14,6 +15,7 @@ class Account:
             self.height = s[3].split('\n')[0]
             self.weight = s[4].split('\n')[0]
             self.currentTime = s[5].split('\n')[0]
+            self.goal = Goal()
 
             f.close()
         else:

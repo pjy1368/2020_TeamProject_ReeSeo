@@ -58,7 +58,10 @@ def analyzeMyExerciseRecord(account):
     print("This is analyze my exercise record")
 
 def setAndViewMyExerciseGoal(account):
-    print("This is set and view my exercise goal")
+    if account.goal.isGoal():
+        account.goal.view()
+    else:
+        account.goal.setGoal()
 
 def subMitExerciseRecord(account):
     print("This is sumit today's exercise record")
