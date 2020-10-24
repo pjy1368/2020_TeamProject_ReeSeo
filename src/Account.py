@@ -3,32 +3,29 @@ import shutil
 
 class Account:
     def __init__(self):
-        self.name = None
-        self.gender = None
-        self.birth = None
-        self.height = None
-        self.weight = None
-        self.currentTime = None
+        if self.isMember():
+            filePath = os.path.join("./user", "profile.txt")
+            f = open(filePath, "r")
+            s = f.readlines()
+        
+            self.name = s[0].split('\n')[0]
+            self.gender = s[1].split('\n')[0]
+            self.birth = s[2].split('\n')[0]
+            self.height = s[3].split('\n')[0]
+            self.weight = s[4].split('\n')[0]
+            self.currentTime = s[5].split('\n')[0]
 
-    def init(self):
-        filePath = os.path.join("./user", "profile.txt")
-        f = open(filePath, "r")
-        s = f.readlines()
-
-        self.name = s[0].split('\n')[0]
-        self.gender = s[1].split('\n')[0]
-        self.birth = s[2].split('\n')[0]
-        self.height = s[3].split('\n')[0]
-        self.weight = s[4].split('\n')[0]
-        self.currentTime = s[5].split('\n')[0]
-
-        f.close()
+            f.close()
+        else:
+            self.name = None
+            self.gender = None
+            self.birth = None
+            self.height = None
+            self.weight = None
+            self.currentTime = None
 
     # Does the account exist?
     def isMember(self):
-        if os.path.isdir("./user"):
-            self.init()
-
         return os.path.isdir("./user")
 
     # Create account.
@@ -53,15 +50,17 @@ class Account:
         weight = input("Enter weight : ")
         f.write(weight + "\n")
 
-        currentTime = input("Enter current time : ")
+        currentTime = input("Enter current time (YYYY-MM-DD) : ")
         f.write(currentTime + "\n")
 
         f.close()
-        self.init()
+        self.__init__()
 
     # Clear account.
     def clear(self):
         shutil.rmtree("./user")
+        self.__init__()
+
 
     # Revise profile.
     def revise(self, list):
