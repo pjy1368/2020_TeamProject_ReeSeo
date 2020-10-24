@@ -21,4 +21,3 @@ def startScreen():
     print("201910514  Jo\tJaehun")
     input()
     os.system('cls')
-    
