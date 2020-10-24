@@ -15,7 +15,7 @@ class Account:
             self.height = s[3].split('\n')[0]
             self.weight = s[4].split('\n')[0]
             self.currentTime = s[5].split('\n')[0]
-            self.goal = Goal()
+            self.goal = Goal(self)
 
             f.close()
         else:
