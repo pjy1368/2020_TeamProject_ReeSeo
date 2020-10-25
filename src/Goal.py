@@ -103,6 +103,8 @@ class Goal:
 
         print("<View goal>")
         print("Goal Term : " + self.term + " days\n")
-        print("Goal daily calories : " + self.calories + " kcal\n")
+        print("Goal daily calories : " + self.calories + " kcal")
+        input()
+        os.system('cls')
 
         f.close()

@@ -32,11 +32,13 @@ def menu(account):
             return True
         else:
             print("You must enter a natural number from 1 to 7.")
+            input()
             os.system('cls')
             continue
 
     
 def viewAndModifyProfile(account):
+    os.system('cls')
     account.view()
     print("Select the number of the item you want to modify.")
     print("(If multiple selections are made, please add a space between the number and the number).")
@@ -50,8 +52,9 @@ def viewAndModifyProfile(account):
 
     list = str.split(" ")
     for i in list:
-        if len(i) >= 2 or i < '1' or i > '6':
+        if len(i) != 1 or i < '1' or i > '6':
             print("Digit 1, 2, 3, 4, 5, 6 allowed only")
+            input()
             os.system('cls')
             return False
 
