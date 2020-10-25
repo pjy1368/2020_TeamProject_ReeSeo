@@ -1,6 +1,6 @@
 import os
 class Goal:
-    def __init__(self):
+    def __init__(self, account):
         if self.isGoal():
             filePath = os.path.join("./user", "goal.txt")
             f = open(filePath, "r")
@@ -19,7 +19,7 @@ class Goal:
         return os.path.isfile("./user/goal.txt")
 
     # Set goal.
-    def setGoal(self):
+    def setGoal(self, account):
         filePath = os.path.join("./user", "goal.txt")
         f = open(filePath, "w")
         while True:
@@ -36,14 +36,20 @@ class Goal:
             else:
                 print("Term must be entered as a natural number.")
 
+        maxCalories = 0
+        if account.gender == "Male":
+            maxCalories = (float(account.weight) * 10) * 1.2
+        else:
+            maxCalories = (float(account.weight) * 10) * 0.8
+
         print("<Setting goal calories>")
-        print("The maximum daily calorie is" + "AAA" + " kcal. Please enter the goal daily calorie.") # AAA = kg * 10 * x kcal
+        print("The maximum daily calorie is " + str(maxCalories) + " kcal. Please enter the goal daily calorie.") 
         print("The integer part of the value must be at least 2 digits and the decimal part must be 2 digits. At this point, the integer part must be positive")
         calories = input("-> ")
         f.write(calories + "\n")
 
         f.close()
-        self.__init__()
+        self.__init__(account)
     
     # Delete goal.
     def delete(self):

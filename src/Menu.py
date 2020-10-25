@@ -65,7 +65,7 @@ def setAndViewMyExerciseGoal(account):
     if account.goal.isGoal():
         account.goal.view()
     else:
-        account.goal.setGoal()
+        account.goal.setGoal(account)
 
 def subMitExerciseRecord(account):
     print("This is sumit today's exercise record")
