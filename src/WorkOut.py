@@ -59,7 +59,7 @@ class WorkOut:
         SELECT_MENU = "select menu: "
         sel = input(SELECT_MENU)
         
-        while len(sel) >= 2 or sel[0] <= '1' or sel[0] >= str(COUNT_OPTIONS):
+        while len(sel) >= 2 or sel[0] <= '1' or sel[0] >= str(countOptions):
             print("Invalid input. please try agian.")
             sel = input(SELECT_MENU)
 
@@ -91,9 +91,9 @@ class WorkOut:
             print(option)
 
         SELECT_MENU = "select menu"
-        sel = int(input("select menu: "))
+        sel = input("select menu: ")
 
-        while len(sel) >= 2 or sel[0] <= '1' or sel[0] >= str(countOptions):
+        while len(sel) >= 2 or sel <= '1' or sel >= str(countOptions):
             print("Invalid input. please try agian.")
             sel = input(SELECT_MENU)
 

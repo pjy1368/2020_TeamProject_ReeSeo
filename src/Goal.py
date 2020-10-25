@@ -2,7 +2,7 @@ import os
 class Goal:
     def __init__(self, account):
         if self.isGoal():
-            filePath = os.path.join("./user", "goal.txt")
+            filePath = "./user/profile.txt"
             f = open(filePath, "r")
             s = f.readlines()
         
@@ -20,7 +20,7 @@ class Goal:
 
     # Set goal.
     def setGoal(self, account):
-        filePath = os.path.join("./user", "goal.txt")
+        filePath = "./user/profile.txt"
         f = open(filePath, "w")
         while True:
             print("<Setting goal term>")
@@ -57,7 +57,7 @@ class Goal:
 
     # Print goal.
     def view(self):
-        filePath = os.path.join("./user", "goal.txt")
+        filePath = "./user/profile.txt"
         f = open(filePath, 'r')
 
         print("<View goal>")
