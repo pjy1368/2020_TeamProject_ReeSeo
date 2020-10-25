@@ -239,16 +239,16 @@ class Account:
             break
         
         while True:
-            weight = input("Enter your weight (aa.bb) : ")
+            weight = input("Enter your weight (aa.bb) or (aaa.bb) : ")
 
-            if len(weight) != 5:
-                print("Illegal form of weight. Length of weight is total 5 character.")
+            if len(weight) < 5 or len(weight) > 6:
+                print("Illegal form of weight. Length of weight is total 5 or 6 character.")
                 input()
                 os.system('cls')
                 continue
 
-            if weight.find('.') == -1 or len(weight.split('.')[0]) != 2 or len(weight.split('.')[1]) != 2:
-                print("Illegal form of height. Height is consisted with 3 integer and 2 decimal classified with '.'.")
+            if weight.find('.') == -1 or len(weight.split('.')[0]) < 2 or len(weight.split('.')[0]) > 3 or len(weight.split('.')[1]) != 2:
+                print("Illegal form of weight. Weight is consisted with 2 or 3 integer and 2 decimal classified with '.'.")
                 input()
                 os.system('cls')
                 continue

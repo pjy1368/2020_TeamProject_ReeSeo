@@ -37,7 +37,7 @@ class Goal:
 
             p = re.search(r'^[0-9]{1,2}$', term)
 
-            if not p:
+            if not p or int(term) < 1 or int(term) > 30:
                 print("Enter a natural number from 1 to 30 for the goal term.")
                 input()
                 os.system('cls')

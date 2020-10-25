@@ -1,3 +1,5 @@
+import os
+
 def menu(account):
     while(True):
         print("<Main menu>")
@@ -10,6 +12,7 @@ def menu(account):
         print("7. Exit Program\n")
         
         sel = input("select menu : ")
+        os.system('cls')
         
         if sel == '1':
             while(True):
@@ -28,6 +31,8 @@ def menu(account):
         elif sel == '7':
             return True
         else:
+            print("You must enter a natural number from 1 to 7.")
+            os.system('cls')
             continue
 
     
@@ -40,15 +45,18 @@ def viewAndModifyProfile(account):
     str = input("=> ")
 
     if str == 'q' or str == 'Q':
+        os.system('cls')
         return True
 
     list = str.split(" ")
     for i in list:
-        if len(i) >= 2:
+        if len(i) >= 2 or i < '1' or i > '6':
+            print("Digit 1, 2, 3, 4, 5, 6 allowed only")
+            os.system('cls')
             return False
-        if i < '1' or i > '6':
-            return False
+
     account.revise(list)
+    os.system('cls')
 
 def viewAndModifyListOfExercise(account):
     print("This is viewAndModifyListOfExercise")
