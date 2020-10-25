@@ -43,7 +43,6 @@ def viewAndModifyProfile(account):
         return True
 
     list = str.split(" ")
-
     for i in list:
         if len(i) >= 2:
             return False
@@ -53,6 +52,11 @@ def viewAndModifyProfile(account):
 
 def viewAndModifyListOfExercise(account):
     print("This is viewAndModifyListOfExercise")
+    account.workOut.print()
+    
+
+
+
 
 def analyzeMyExerciseRecord(account):
     print("This is analyze my exercise record")
