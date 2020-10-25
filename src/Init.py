@@ -1,3 +1,5 @@
+import os
+
 # returns True in the following cases:
 # 1. use an existing account
 # 2. create a new account
@@ -8,29 +10,35 @@
 
 def login(account):
     if account.isMember():
-        print("1. Clear account")
-        print("2. Use an existing account")
+        while True:
+            print("1. Clear account")
+            print("2. Use an existing account")
 
-        sel = input("=> ")
+            sel = input("=> ")
 
-        if sel == "1":
-            account.clear()
-            return False
-        elif sel == "2":
-            return True
-        else:
-            print("Invalid input")
+            if sel == "1":
+                account.clear()
+                return False
+            elif sel == "2":
+                return True
+            else:
+                print("Digit 1, 2 allowed only.")
+                input()
+                os.system('cls')
+        
     else:
-        print("1. Create account")
-        print("2. Move to start screen")
+        while True:
+            print("Creating a new account? (1. yes 2. no)")
+            sel = input("=> ")
 
-        sel = input("=> ")
-
-        if sel == "1":
-            account.create()
-            return True
-        elif sel == "2":
-            return False
-        else:
-            print("Invalid input")
+            if sel == "1":
+                os.system('cls')
+                account.create()
+                return True
+            elif sel == "2":
+                return False
+            else:
+                print("Digit 1 or 2 are allowed only.")
+                input()
+                os.system('cls')
 
