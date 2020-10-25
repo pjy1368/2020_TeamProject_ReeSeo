@@ -15,7 +15,7 @@ class Account:
             self.name = s[0].split('\n')[0]
             self.gender = s[1].split('\n')[0]
             self.birth = s[2].split('\n')[0]
-            self.currentTime = s[3].split('\n')[0]
+            self.startingDate = s[3].split('\n')[0]
             self.height = s[4].split('\n')[0]
             self.weight = s[5].split('\n')[0]
             self.goal = Goal(self)
@@ -26,7 +26,7 @@ class Account:
             self.name = None
             self.gender = None
             self.birth = None
-            self.currentTime = None
+            self.startingDate = None
             self.height = None
             self.weight = None
 
@@ -40,6 +40,9 @@ class Account:
 
         filePath = "./user/profile.txt"
         f = open(filePath, "w")
+
+        pre = None
+        now = None
 
         while True:
             print("Enter name (20 Digits with Upper- and Lower-case alphabet and blank spaces)")
@@ -96,7 +99,7 @@ class Account:
                 continue
             
             if birth[4] != '-' or birth[7] != '-':
-                print("Each year,month and date are must classified as '-' with followed form (YYYY-MM-DD)")
+                print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD)")
                 input()
                 os.system('cls')
                 continue
@@ -104,7 +107,7 @@ class Account:
             list = birth.split('-')
 
             if len(list[0]) != 4 or len(list[1]) != 2 or len(list[2]) != 2:
-                print("Each year,month and date are must classified as '-' with followed form (YYYY-MM-DD)")
+                print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD)")
                 input()
                 os.system('cls')
                 continue
@@ -134,7 +137,7 @@ class Account:
             check = True
             while check:
                 try:
-                    date = datetime(int(list[0]), int(list[1]), int(list[2]))
+                    pre = datetime(int(list[0]), int(list[1]), int(list[2]))
                     break
                 except ValueError:
                     print("Inexistent form of date followed by Gregorian Calendar")
@@ -150,24 +153,24 @@ class Account:
             break
 
         while True:
-            currentTime = input("Enter current time (YYYY-MM-DD) : ")
+            startingDate = input("Enter starting date(YYYY-MM-DD) : ")
             
-            if len(currentTime) != 10:
+            if len(startingDate) != 10:
                 print("Length of string must be 10.")
                 input()
                 os.system('cls')
                 continue
             
-            if currentTime[4] != '-' or currentTime[7] != '-':
-                print("Each year,month and date are must classified as '-' with followed form (YYYY-MM-DD)")
+            if startingDate[4] != '-' or startingDate[7] != '-':
+                print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD)")
                 input()
                 os.system('cls')
                 continue
             
-            list = currentTime.split('-')
+            list = startingDate.split('-')
 
             if len(list[0]) != 4 or len(list[1]) != 2 or len(list[2]) != 2:
-                print("Each year,month and date are must classified as '-' with followed form (YYYY-MM-DD)")
+                print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD)")
                 input()
                 os.system('cls')
                 continue
@@ -187,7 +190,7 @@ class Account:
                 continue
 
 
-            p = re.search(r'^((19[7-9][0-9]|20[0-2][0-9]|203[0-6])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(2037-(0[1-9]|1[0-1])-(0[1-9]|[12][0-9]|3[01])))$', currentTime)
+            p = re.search(r'^((19[7-9][0-9]|20[0-2][0-9]|203[0-6])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(2037-(0[1-9]|1[0-1])-(0[1-9]|[12][0-9]|3[01])))$', startingDate)
 
             if not p:
                 print("Iligeal form of date. (1970-01-01 ~ 2037-11-30)")
@@ -198,7 +201,7 @@ class Account:
             check = True
             while check:
                 try:
-                    date = datetime(int(list[0]), int(list[1]), int(list[2]))
+                    now = datetime(int(list[0]), int(list[1]), int(list[2]))
                     break
                 except ValueError:
                     print("Inexistent form of date followed by Gregorian Calendar")
@@ -209,7 +212,13 @@ class Account:
             if not check:
                 continue
 
-            f.write(currentTime + "\n")
+            if pre < now:
+                print("Starting date is earlier than date of birth.")
+                input()
+                os.system('cls')
+                continue
+
+            f.write(startingDate + "\n")
             os.system('cls')
             break
 
