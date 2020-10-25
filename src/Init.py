@@ -1,3 +1,11 @@
+# returns True in the following cases:
+# 1. use an existing account
+# 2. create a new account
+
+# returns False in the follwing cases:
+# 1. clear account
+# 2. move to start screen
+
 def login(account):
     if account.isMember():
         print("1. Clear account")
