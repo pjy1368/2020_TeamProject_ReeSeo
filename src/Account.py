@@ -1,6 +1,7 @@
 import os
 import shutil
 from Goal import Goal
+from WorkOut import WorkOut
 
 class Account:
     def __init__(self):
@@ -16,6 +17,7 @@ class Account:
             self.weight = s[4].split('\n')[0]
             self.currentTime = s[5].split('\n')[0]
             self.goal = Goal()
+            self.workOut = WorkOut()
 
             f.close()
         else:
