@@ -6,6 +6,8 @@ from WorkOut import WorkOut
 from datetime import datetime
 
 class Account:
+    # If you have an account, define the member variables based on the contents of the text file.
+    # If no account exists, define the member variable as 'None'.
     def __init__(self):
         if self.isMember():
             filePath = "./user/profile.txt"
@@ -36,8 +38,13 @@ class Account:
 
     # Create account.
     def create(self, arr):
-        isNew = not self.isMember()
+        isNew = not self.isMember() # Is it a new account?
 
+        # pre : The user's birth date is expressed as a "datetime" object.
+        # now : The user's starting date is expressed as a "datetime" object.
+
+        # If no account exists, Create a folder and a "profile.txt" file.
+        # Also, 'pre', 'now' are defined as 'None'
         if isNew:
             os.mkdir("./user")
 
@@ -53,6 +60,11 @@ class Account:
             list = self.startingDate.split("-")
             now = datetime(int(list[0]), int(list[1]), int(list[2])) 
 
+        # If you have a new account, arr must be [1, 2, 3, 4, 5, 6].
+        # In other words, all personal information of the user are entered.
+
+        # If If you have an account, arr is [1], or [1, 2] , ... , [1, 2, 3, 4, 5, 6].
+        # In other words, the user's personal information is partially or all entered.
         for i in arr:
             i = int(i)
 
@@ -354,7 +366,8 @@ class Account:
                     self.weight = weight
                     os.system('cls')
                     break
-
+        
+        # If you have a new account, the personal information of the user entered above is recorded in "profile.txt".
         if isNew:
             f.write(self.name + "\n")
             f.write(self.gender + "\n")
@@ -393,14 +406,9 @@ class Account:
 
     # Print profile.
     def view(self):
-        filePath = "./user/profile.txt"
-        f = open(filePath, 'r')
-
         print("1. Name : " + self.name + "\n")
         print("2. Gender : " + self.gender + "\n")
         print("3. Birth : " + self.birth + "\n")
         print("4. Starting time : " + self.startingDate + "\n")
         print("5. Height : " + self.height + " (cm)\n")
         print("6. Weight : " + self.weight + " (kg)\n")
-
-        f.close()
