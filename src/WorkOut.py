@@ -87,7 +87,7 @@ class WorkOut:
         SELECT_MENU = "select menu: "
         while True:
             sel = input(SELECT_MENU)
-            p = re.search(r"^1|2|3$", sel)
+            p = re.search(r"^(1|2|3)$", sel)
             if not p:
                 print("Invalid input. please try agian.")
                 continue
