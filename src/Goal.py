@@ -26,7 +26,7 @@ class Goal:
         while True:
             print("<Setting goal>")
             print("Enter the goal term")
-            print("(Enter a natural number from 1 to 30 for the goal term) : ")
+            print("(Enter a natural number from 1 to 30 for the goal term)")
             term = input("-> ")
 
             if len(term) < 1 or len(term) > 2:
