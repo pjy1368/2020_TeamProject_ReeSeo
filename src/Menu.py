@@ -68,18 +68,18 @@ def viewAndModifyListOfExercise(account):
         sel = workOut.view()
         if sel == '1':
             while True:
-                sel2, index = workOut.viewExercise()
+                sel2, index = workOut.viewWorkOut()
                 if sel2 == '1':
                     workOut.editWorkOut(index)
-                elif sel == '2':
+                elif sel2 == '2':
                     workOut.deleteWorkOut(index)
-                elif sel == '3':
+                elif sel2 == '3':
                     break
                 else:
                     print(ERR_MESSAGE)
                     break
         elif sel == '2':
-            workOut.addExercise()
+            workOut.addWorkOut()
         elif sel == '3':
             return
         else:
