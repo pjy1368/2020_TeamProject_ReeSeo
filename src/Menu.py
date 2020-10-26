@@ -58,6 +58,8 @@ def viewAndModifyProfile(account):
             os.system('cls')
             return False
 
+    list.sort()
+    os.system('cls')
     account.revise(list)
     os.system('cls')
 
