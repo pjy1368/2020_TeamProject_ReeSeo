@@ -169,6 +169,7 @@ class WorkOut:
         if self.countWorkouts >= 10:
             print("Max count of exercise limit is 10!\n You cannot over it!")
             input()
+            return
 
         name = ""
         while True:
