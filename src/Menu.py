@@ -67,8 +67,9 @@ def viewAndModifyListOfExercise(account):
         workOut = account.workOut
         sel = workOut.view()
         if sel == '1':
+            workOutIndex = workOut.getWorkOutSelection()
             while True:
-                sel2, index = workOut.viewWorkOut()
+                sel2, index = workOut.viewWorkOut(workOutIndex)
                 if sel2 == '1':
                     workOut.editWorkOut(index)
                 elif sel2 == '2':
