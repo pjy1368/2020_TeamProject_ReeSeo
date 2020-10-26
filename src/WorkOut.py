@@ -105,7 +105,6 @@ class WorkOut:
             string = input("Input number of exercise to view:")
             length = str(len(string))
             p = re.search(r"^[0-9]{1," + str(length) + r"}$", string)
-            print(p)
             if not p:
                 print("Contains invalid characters!")
                 continue
@@ -118,8 +117,7 @@ class WorkOut:
 
 
     def viewWorkOut(self, index):
-
-        print(self.workOutList)
+        
         selectedWorkOut = self.workOutList[index]
         workOutName = selectedWorkOut[0]
         print(f"Name of Exercise: {workOutName}")
@@ -135,7 +133,21 @@ class WorkOut:
                 print(f"{calorieRange}~: {calorie}kcal")
             else:
                 print(f"{calorieRange}~{int(calorieRange) + self.RANGE}: {calorie}kcal")
-        
+
+        workOutName = self.workOutList[index][0]
+
+        # DEFAULT_WORKOUTS can't be edited
+        if workOutName in self.DEFAULT_WORKOUTS:
+            OPTION = "1. back"
+            print(OPTION)
+            SELECT_MENU = "select menu: "
+            sel = input(SELECT_MENU)
+
+            while sel != '1':
+                print("Invalid input. please try again.")
+                sel = input(SELECT_MENU)
+            return ['3', '']
+    
         OPTION1 = "1. edit"
         OPTION2 = "2. delete"
         OPTION3 = "3. back"
@@ -173,7 +185,7 @@ class WorkOut:
         consumption = ""
         while True:
             consumption = input("(65~75kg standard) Input calorie consumption per minute: ")
-            p = re.search(r'^[1-9]|[1-9][0-9]|[1-5][0-9][0-9]$', consumption)
+            p = re.search(r'^([1-9]|[1-9][0-9]|[1-4][0-9][0-9]|500)$', consumption)
             if not p:
                 print("Please enter digit between 1~500!")
                 input()
@@ -189,6 +201,11 @@ class WorkOut:
         
 
     def editWorkOut(self, index):
+        workOutName = self.workOutList[index][0]
+        if workOutName in self.DEFAULT_WORKOUTS:
+            print("this workout can't be deleted.")
+            input()
+            return
         
         while True:
             OPTION1 = "1. workout name"
@@ -221,7 +238,7 @@ class WorkOut:
             consumption = ""
             while True:
                 consumption = input("(65~75kg standard) Input calorie consumption per minute: ")
-                p = re.search(r'^[1-9]|[1-9][0-9]|[1-5][0-9][0-9]$', consumption)
+                p = re.search(r'^([1-9]|[1-9][0-9]|[1-4][0-9][0-9]|500)$', consumption)
                 if not p:
                     print("Please enter digit between 1~500!")
                     input()
@@ -234,10 +251,6 @@ class WorkOut:
 
     def deleteWorkOut(self, index):
         workOutName = self.workOutList[index][0]
-        if workOutName in self.DEFAULT_WORKOUTS:
-            print("this workout can't be deleted.")
-            input()
-            return
         self.workOutList.pop(index)
         self.countWorkouts -= 1
         self.rewrite()
@@ -264,14 +277,5 @@ class WorkOut:
         
 
 
-
-    
-
-
-    # edit workout list
-    # def edit():
-
-    # delete workout list
-    # def delete():
 
 
