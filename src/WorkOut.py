@@ -172,6 +172,7 @@ class WorkOut:
             return
 
         name = ""
+        names = [workOut[0] for workOut in self.workOutList]
         while True:
             name = input("Input name of exercise: ")
             p = re.search(r'^[\w ]{1,20}$', name)
@@ -180,6 +181,9 @@ class WorkOut:
                 input()
             elif not p:
                 print("Wrong input! Please Enter Again!")
+                input()
+            elif name in names:
+                print("try with a different name. You already have a workout that has the same name.")
                 input()
             else:
                 break
@@ -221,7 +225,10 @@ class WorkOut:
                 continue
             break
 
+
+        
         if sel == '1':
+            names = [workOut[0] for workOut in self.workOutList]
             name = ""
             while True:
                 name = input("Input name of exercise: ")
@@ -231,6 +238,12 @@ class WorkOut:
                     input()
                 elif not p:
                     print("Wrong input! Please Enter Again!")
+                    input()
+                elif name == workOutName:
+                    print("try with a different name. the previous name is the same as you typed.")
+                    input()
+                elif name in names:
+                    print("try with a different name. You already have a workout that has the same name.")
                     input()
                 else:
                     break
