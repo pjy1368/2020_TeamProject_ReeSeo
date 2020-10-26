@@ -1,10 +1,18 @@
 import os
 import re
+import math
 
 class WorkOut:
     def __init__(self):
+        
+        # temporary variables for workout names
+        TAKING_A_WALK = "taking a walk"
+        GOING_FOR_A_RUN = "going for a run"
+        RIDING_A_BIKE = "riding a bike"
+        self.DEFAULT_WORKOUTS = [TAKING_A_WALK, GOING_FOR_A_RUN, RIDING_A_BIKE]
+
         # check if file exists
-        self.filePath =  os.path("./user/workout.txt")
+        self.filePath =  "./user/workout.txt"
         if os.path.isfile(self.filePath):
             f = open(self.filePath, "r")
             s = f.readlines()
@@ -18,18 +26,22 @@ class WorkOut:
             self.RANGE = 10 # calorie range
             self.calorieRanges = [self.BELOW, "55", "65", "75", self.ABOVE]
             self.coefficient = [0.7, 0.8, 0.9, 1, 1.1]
-            self.countWorkouts = 3
             self.countCalories = 5
-            self.limit = 10  # maximal number of workouts that can be in workOutList            
-            self.workOutList = [[words[0], {self.calorrieRanges[calorieIndex]: int(words[calorieIndex]) for calorieIndex in range(self.countCalories)}] for words in line.split('\t') for line in lines]
+            self.limit = 10  # maximal number of workouts that can be in workOutList
+            self.workOutList = []
+            for line in lines:
+                words = line.split('\t')
+                name = words.pop(0)
+                self.workOutList.append([name, {self.calorieRanges[calorieIndex]: float(words[calorieIndex]) for calorieIndex in range(self.countCalories)}])
+
+            self.countWorkouts = len(self.workOutList)
+                                    
+            # self.workOutList.append([words[0], {self.calorieRanges[calorieIndex]: int(words[calorieIndex]) for calorieIndex in range(self.countCalories)}])
+            # self.workOutList = [[words[0], {self.calorrieRanges[calorieIndex]: int(words[calorieIndex])
+            #  for calorieIndex in range(self.countCalories)}] for words in line.split('\t') for line in lines]
             return
 
-        # temporary variables for workout names
-        TAKING_A_WALK = "taking a walk"
-        GOING_FOR_A_RUN = "going for a run"
-        RIDING_A_BIKE = "riding a bike"
-        self.DEFAULT_WORKOUTS = [TAKING_A_WALK, GOING_FOR_A_RUN, RIDING_A_BIKE]
-
+        
         
         # temporary variables for calorie consumption
         caloriesWalk = [3.4, 4.4, 5.4, 6.3, 7.2]
@@ -48,19 +60,21 @@ class WorkOut:
         self.countWorkouts = 3
         self.countCalories = 5
         self.limit = 10 # maximal number of workouts that can be in workOutList
-        self.workOutList = [[self.DEFAULT_WORKOUTS[workOutIndex], {self.calorieRanges[calorieIndex]: defaultCalories[workOutIndex][calorieIndex] for calorieIndex in range(self.countCalories)}] for workOutIndex in range(self.countWorkouts)]
-        
+        self.workOutList = [[self.DEFAULT_WORKOUTS[workOutIndex], {self.calorieRanges[calorieIndex]: defaultCalories[workOutIndex][calorieIndex] for calorieIndex in range(self.countCalories)}] for workOutIndex in range(self.countWorkouts)]        
         # example of workOutList
         # [[name1, {below: consumption1, 55: consumption2, 65: consumption3, 75: consumption3, above: consumption3}],
         # [name2, {below: consumption1, 55: consumption2, 65: consumption3, 75: consumption3, above: consumption3}], ...]
         
+        self.rewrite()
+
     def view(self):
         print("<View and Modify list of exercise>")
         for index, workOut in enumerate(self.workOutList):
             index_on_display = index + 1
             workOutName = workOut[0]
             print(f"{index_on_display}. {workOutName}")
-
+        print()
+        
         OPTION1 = "1. View Exercise"
         OPTION2 = "2. Add Exercise"
         OPTION3 = "3. Back"
@@ -69,50 +83,58 @@ class WorkOut:
 
         for option in options:
             print(option)
-
-
-        SELECT_MENU = "select menu: "
-        sel = input(SELECT_MENU)
         
-        while len(sel) >= 2 or sel[0] <= '1' or sel[0] >= str(countOptions):
-            print("Invalid input. please try agian.")
+        SELECT_MENU = "select menu: "
+        while True:
             sel = input(SELECT_MENU)
+            p = re.search(r"^1|2|3$", sel)
+            if not p:
+                print("Invalid input. please try agian.")
+                continue
+            break
         return sel
 
 
     #######
     # how to deal with this: 000003?
     #######
-    def viewExercise(self):
+
+    def getWorkOutSelection(self):
         index = 0
         while (True):
             string = input("Input number of exercise to view:")
             length = str(len(string))
-            p = re.search(rf"^[0-9]{1,{length}}$", string)
+            p = re.search(r"^[0-9]{1," + str(length) + r"}$", string)
+            print(p)
             if not p:
                 print("Contains invalid characters!")
                 continue
             index = int(string) - 1
-            if 0 <= index < self.countWorkouts:
+            if not (0 <= index < self.countWorkouts):
                 print("The number does not exist in the list!")
                 continue
             break
+        return index
 
+
+    def viewWorkOut(self, index):
+
+        print(self.workOutList)
         selectedWorkOut = self.workOutList[index]
         workOutName = selectedWorkOut[0]
         print(f"Name of Exercise: {workOutName}")
         print()
 
         workOutCalories = selectedWorkOut[1]
-        print("Calorie consumption by seciton: ")
+        print("Calorie consumption by section: ")
         for calorieRange in self.calorieRanges:
             calorie = workOutCalories[calorieRange]
-            if calorie == self.BELOW:
-                print(f"~{calorie}: {workOutCalories[calorie]}kcal")
-            elif calorie == self.ABOVE:
-                print(f"{calorie}~: {workOutCalories[calorie]}kcal")
+            if calorieRange == self.BELOW:
+                print(f"~{calorieRange}: {calorie}kcal")
+            elif calorieRange == self.ABOVE:
+                print(f"{calorieRange}~: {calorie}kcal")
             else:
-                print(f"{calorie}~{int(calorie) + self.RANGE}: {workOutCalories[calorie]}kcal")
+                print(f"{calorieRange}~{int(calorieRange) + self.RANGE}: {calorie}kcal")
         
         OPTION1 = "1. edit"
         OPTION2 = "2. delete"
@@ -126,8 +148,8 @@ class WorkOut:
         SELECT_MENU = "select menu"
         sel = input("select menu: ")
 
-        while len(sel) >= 2 or sel <= '1' or sel >= str(countOptions):
-            print("Invalid input. please try agian.")
+        while len(sel) >= 2 or not ('1' <= sel <= str(countOptions)):
+            print("Invalid input. please try again.")
             sel = input(SELECT_MENU)
         return [sel, index]
 
@@ -155,17 +177,19 @@ class WorkOut:
             if not p:
                 print("Please enter digit between 1~500!")
                 input()
+                continue
+            break
         
-        self.workOutList.append([name, {self.calorieRanges[indexCalories]: self.coefficient[indexCalories] * int(consumption) for indexCalories in self.countCalories}])
+        self.workOutList.append([name, {self.calorieRanges[indexCalories]: math.floor(self.coefficient[indexCalories] * int(consumption) * 100) / 100.0 for indexCalories in range(self.countCalories)}])
+        self.countWorkouts += 1
         self.rewrite()
-        # for test purpose only
-        print(self.workOutList)
         print("Exercise added.")
         input()
         
         
 
     def editWorkOut(self, index):
+        
         while True:
             OPTION1 = "1. workout name"
             OPTION2 = "2. calorie consumption"
@@ -173,13 +197,14 @@ class WorkOut:
             for option in options:
                 print(option)
             sel = input("please select an item to modify: ")
-            p = re.search(r'^1|2$', sel)
+            p = re.search(r'^[1|2]$', sel)
             if not p:
                 print("invalid input. please try again.")
                 continue
             break
 
         if sel == '1':
+            name = ""
             while True:
                 name = input("Input name of exercise: ")
                 p = re.search(r'^[\w ]{1,20}$', name)
@@ -191,7 +216,7 @@ class WorkOut:
                     input()
                 else:
                     break
-            self.workOutList[[index][0]] = name
+            self.workOutList[index][0] = name
         elif sel == '2':
             consumption = ""
             while True:
@@ -201,11 +226,9 @@ class WorkOut:
                     print("Please enter digit between 1~500!")
                     input()
             for indexCalories in self.countCalories:
-                self.workOutList[index][1][indexCalories] = self.coefficient[indexCalories] * int(consumption)
+                self.workOutList[index][1][indexCalories] = math.floor(self.coefficient[indexCalories] * int(consumption) * 100) / 100.0
                 
         self.rewrite()
-        # for test purpose only
-        print(self.workOutList)
         print("Successfully modified.")
         input()
 
@@ -216,25 +239,21 @@ class WorkOut:
             input()
             return
         self.workOutList.pop(index)
+        self.countWorkouts -= 1
         self.rewrite()
         print("finished deleting.")
         input()
         
-        
-
-
-        
     def rewrite(self):
-        os.remove(self.filePath)
+        if os.path.isfile(self.filePath):
+            os.remove(self.filePath)
         f = open(self.filePath, "w")
         for workOutName, calorieConsumption in self.workOutList:
-            f.write('\t'.join(workOutName + list(calorieConsumption.values())) + '\n')
-        
+            consumptions = [str(value) for value in calorieConsumption.values()]
+            f.write('\t'.join([workOutName] + consumptions) + '\n')
+
+
     
-
-
-        
-
             
 
 
