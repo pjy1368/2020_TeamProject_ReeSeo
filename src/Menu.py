@@ -65,8 +65,8 @@ def viewAndModifyProfile(account):
 
 def viewAndModifyListOfExercise(account):
     ERR_MESSAGE = "An error occured. We'll load the previous page."
+    workOut = account.workOut
     while True:
-        workOut = account.workOut
         sel = workOut.view()
         if sel == '1':
             workOutIndex = workOut.getWorkOutSelection()
@@ -76,6 +76,7 @@ def viewAndModifyListOfExercise(account):
                     workOut.editWorkOut(index)
                 elif sel2 == '2':
                     workOut.deleteWorkOut(index)
+                    break
                 elif sel2 == '3':
                     break
                 else:
