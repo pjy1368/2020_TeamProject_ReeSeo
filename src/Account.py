@@ -376,6 +376,8 @@ class Account:
             f.write(self.height + " (cm)\n")
             f.write(self.weight + " (kg)\n")
             f.close()
+            self.goal = Goal(self)
+            self.workOut = WorkOut()
 
     # Clear account.
     def clear(self):
