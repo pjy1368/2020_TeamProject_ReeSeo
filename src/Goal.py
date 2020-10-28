@@ -1,14 +1,16 @@
 import os
 import re
+from datetime import datetime
 class Goal:
     def __init__(self, account):
         if self.isGoal():
             filePath = "./user/goal.txt"
             f = open(filePath, "r")
             s = f.readlines()
-        
-            self.term = s[0].split('\n')[0]
-            self.calories = s[1].split('\n')[0]
+
+            self.startingDate = s[0].split('\n')[0]
+            self.term = s[1].split('\n')[0]
+            self.calories = s[2].split('\n')[0]
 
             f.close()
         else:
@@ -23,6 +25,8 @@ class Goal:
     def setGoal(self, account):
         filePath = "./user/goal.txt"
         f = open(filePath, "w")
+        f.write(account.currentDate + "\n")
+
         while True:
             print("<Setting goal>")
             print("Enter the goal term")
@@ -91,20 +95,29 @@ class Goal:
 
         f.close()
         self.__init__(account)
-    
-    # Delete goal.
-    def delete(self):
-        os.remove("./user/goal.txt")
 
+    
     # Print goal.
     def view(self):
-        filePath = "./user/goal.txt"
-        f = open(filePath, 'r')
-
         print("<View goal>")
+        print("Starting Date : " + self.startingDate + "\n")
         print("Goal Term : " + self.term + " days\n")
         print("Goal daily calories : " + self.calories + " kcal")
         input()
         os.system('cls')
 
-        f.close()
+    # Verify that the goal is complete.            
+    def isEnd(self, account):
+        if self.isGoal():
+            selfList = self.startingDate.split("-")
+            pre = datetime(int(selfList[0]), int(selfList[1]), int(selfList[2]))
+
+            accountList = account.currentDate.split("-")
+            now = datetime(int(accountList[0]), int(accountList[1]), int(accountList[2]))
+
+            if (now - pre).days == int(self.term):
+                print("Goal is complete.\n")
+                self.view()
+                os.remove("./user/goal.txt")
+                self.__init__(account)
+        

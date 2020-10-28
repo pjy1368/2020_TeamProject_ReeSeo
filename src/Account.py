@@ -17,7 +17,7 @@ class Account:
             self.name = s[0].split('\n')[0]
             self.gender = s[1].split('\n')[0]
             self.birth = s[2].split('\n')[0]
-            self.startingDate = s[3].split('\n')[0]
+            self.currentDate = s[3].split('\n')[0]
             self.height = s[4].split('\n')[0]
             self.weight = s[5].split('\n')[0]
             self.goal = Goal(self)
@@ -28,7 +28,7 @@ class Account:
             self.name = None
             self.gender = None
             self.birth = None
-            self.startingDate = None
+            self.currentDate = None
             self.height = None
             self.weight = None
 
@@ -57,7 +57,7 @@ class Account:
             list = self.birth.split("-")
             pre = datetime(int(list[0]), int(list[1]), int(list[2]))
 
-            list = self.startingDate.split("-")
+            list = self.currentDate.split("-")
             now = datetime(int(list[0]), int(list[1]), int(list[2])) 
 
         # If you have a new account, arr must be [1, 2, 3, 4, 5, 6].
@@ -197,7 +197,7 @@ class Account:
                         continue
 
                     if not isNew and pre > now:
-                        print("Birth is later than date of starting date.")
+                        print("Birth is later than date of current date.")
                         input()
                         os.system('cls')
                         continue
@@ -218,21 +218,21 @@ class Account:
                     break
             elif i == 4:
                  while True:
-                    startingDate = input("Enter starting date (YYYY-MM-DD) : ")
+                    currentDate = input("Enter current date (YYYY-MM-DD) : ")
                     
-                    if len(startingDate) != 10:
+                    if len(currentDate) != 10:
                         print("Length of string must be 10.")
                         input()
                         os.system('cls')
                         continue
                     
-                    if startingDate[4] != '-' or startingDate[7] != '-':
+                    if currentDate[4] != '-' or currentDate[7] != '-':
                         print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD)")
                         input()
                         os.system('cls')
                         continue
                     
-                    list = startingDate.split('-')
+                    list = currentDate.split('-')
 
                     if len(list[0]) != 4 or len(list[1]) != 2 or len(list[2]) != 2:
                         print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD)")
@@ -255,7 +255,7 @@ class Account:
                         continue
 
 
-                    p = re.search(r'^((19[7-9][0-9]|20[0-2][0-9]|203[0-6])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(2037-(0[1-9]|1[0-1])-(0[1-9]|[12][0-9]|3[01])))$', startingDate)
+                    p = re.search(r'^((19[7-9][0-9]|20[0-2][0-9]|203[0-6])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(2037-(0[1-9]|1[0-1])-(0[1-9]|[12][0-9]|3[01])))$', currentDate)
 
                     if not p:
                         print("Iligeal form of date. (1970-01-01 ~ 2037-11-30)")
@@ -278,22 +278,22 @@ class Account:
                         continue
 
                     if pre > now:
-                        print("Starting date is earlier than date of birth.")
+                        print("Current date is earlier than date of birth.")
                         input()
                         os.system('cls')
                         continue
                     
-                    if not isNew and self.startingDate == startingDate:
+                    if not isNew and self.currentDate == currentDate:
                         print("You have entered the same value as before.")
                         input()
                         os.system('cls')
                         continue
 
                     if not isNew:
-                        print("Your starting date has been modified.")
+                        print("Your current date has been modified.")
                         input()
 
-                    self.startingDate = startingDate
+                    self.currentDate = currentDate
                     os.system('cls')
                     break
             elif i == 5:
@@ -372,7 +372,7 @@ class Account:
             f.write(self.name + "\n")
             f.write(self.gender + "\n")
             f.write(self.birth + "\n")
-            f.write(self.startingDate + "\n")
+            f.write(self.currentDate + "\n")
             f.write(self.height + " (cm)\n")
             f.write(self.weight + " (kg)\n")
             f.close()
@@ -400,7 +400,7 @@ class Account:
         f.write(self.name + "\n")
         f.write(self.gender + "\n")
         f.write(self.birth + "\n")
-        f.write(self.startingDate + "\n")
+        f.write(self.currentDate + "\n")
         f.write(self.height + "\n")
         f.write(self.weight + "\n")
 
@@ -412,6 +412,6 @@ class Account:
         print("1. Name : " + self.name + "\n")
         print("2. Gender : " + self.gender + "\n")
         print("3. Birth : " + self.birth + "\n")
-        print("4. Starting time : " + self.startingDate + "\n")
+        print("4. Current Date : " + self.currentDate + "\n")
         print("5. Height : " + self.height + " (cm)\n")
         print("6. Weight : " + self.weight + " (kg)\n")

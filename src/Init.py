@@ -20,6 +20,10 @@ def login(account):
                 account.clear()
                 return False
             elif sel == "2":
+                os.system('cls')
+                
+                # Is the goal complete? 
+                account.goal.isEnd(account)
                 return True
             else:
                 print("Digit 1, 2 allowed only.")
