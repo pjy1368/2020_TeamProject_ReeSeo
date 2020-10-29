@@ -69,10 +69,7 @@ class WorkOut:
 
     def view(self):
         print("<View and Modify list of exercise>")
-        for index, workOut in enumerate(self.workOutList):
-            index_on_display = index + 1
-            workOutName = workOut[0]
-            print(f"{index_on_display}. {workOutName}")
+        self.viewWorkOutList()
         print()
         
         OPTION1 = "1. View Exercise"
@@ -94,15 +91,21 @@ class WorkOut:
             break
         return sel
 
+    def viewWorkOutList(self):
+        for index, workOut in enumerate(self.workOutList):
+            index_on_display = index + 1
+            workOutName = workOut[0]
+            print(f"{index_on_display}. {workOutName}")
+
 
     #######
     # how to deal with this: 000003?
     #######
 
-    def getWorkOutSelection(self):
+    def getWorkOutSelection(self, selStr = "Input number of exercise to view"):
         index = 0
         while (True):
-            string = input("Input number of exercise to view:")
+            string = input(selStr)
             length = str(len(string))
             p = re.search(r"^[0-9]{1," + str(length) + r"}$", string)
             if not p:
