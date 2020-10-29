@@ -105,5 +105,26 @@ def setAndViewMyExerciseGoal(account):
         account.goal.setGoal(account)
 
 def subMitExerciseRecord(account):
-    print("This is sumit today's exercise record")
+    ERR_MESSAGE = "An error occured. We'll load the previous page."
+    workOut = account.workOut
+    goal = account.goal
+    activity = account.activity
+    while True:
+        sel = activity.submit()
+        if sel == "1":
+            activity.submitWorkOutRecord(account)
+        elif sel == "2":
+            # ADD: change the date
+            print("The date has been changed.")
+            activity.tomorrow(account)
+            print(f"Current Date: {account.currentDate}")
+            input()
+        elif sel == "3":
+            return
+        else:
+            input("An error occured. Loading main page...")
+        
+
+    
+    
 
