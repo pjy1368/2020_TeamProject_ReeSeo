@@ -4,6 +4,7 @@ import re
 from Goal import Goal
 from WorkOut import WorkOut
 from datetime import datetime
+from Activity import Activity
 
 class Account:
     # If you have an account, define the member variables based on the contents of the text file.
@@ -22,6 +23,7 @@ class Account:
             self.weight = s[5].split('\n')[0]
             self.goal = Goal(self)
             self.workOut = WorkOut()
+            self.activity = Activity()
 
             f.close()
         else:
@@ -31,6 +33,10 @@ class Account:
             self.currentDate = None
             self.height = None
             self.weight = None
+            self.goal = None
+            self.workOut = None
+            self.activity = None
+
 
     # Does the account exist?
     def isMember(self):
@@ -379,7 +385,8 @@ class Account:
 
             self.goal = Goal(self)
             self.workOut = WorkOut()
-
+            self.activity = Activity()
+            
     # Clear account.
     def clear(self):
         shutil.rmtree("./user")
