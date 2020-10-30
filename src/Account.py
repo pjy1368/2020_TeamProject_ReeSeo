@@ -379,13 +379,13 @@ class Account:
             f.write(self.gender + "\n")
             f.write(self.birth + "\n")
             f.write(self.currentDate + "\n")
-            f.write(self.height + " (cm)\n")
-            f.write(self.weight + " (kg)\n")
+            f.write(self.height + "\n")
+            f.write(self.weight + "\n")
             f.close()
 
             self.goal = Goal(self)
             self.workOut = WorkOut()
-            self.activity = Activity()
+            self.activity = Activity()    
             
     # Clear account.
     def clear(self):
@@ -394,9 +394,11 @@ class Account:
 
 
     # Revise profile.
-    def revise(self, list):
+    def revise(self, list, shouldCreate = True):
         filePath = "./user/profile.txt"
-        self.create(list)
+
+        if shouldCreate:
+            self.create(list)
         
         # file clear
         os.remove(filePath)
