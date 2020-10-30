@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 
 # DEAL WITH MARK 'ADD'
-# 'FOR TEST PURPOSE': Pring out results for test purpose
+# 'FOR TEST PURPOSE': Print out results for test purpose
 # WHAT HASN'T BEEN TESTED(DATE NEEDED)
 # 1. WHEN YOU GO TO TOMORROW AND WRITE DOWN DAILY ACTIVITIES
 # 2. THE STRUCTURE OF dailyHistory changes with multiple dates
@@ -55,7 +55,7 @@ class Activity:
         self.goalCalories = goal.calories
 
         # ADD need to change account.currentDate to string
-        date = "2020-10-29"
+        date = account.currentDate
 
         # select a workout
         SEL_STR = "Please select an exercise"
@@ -82,7 +82,6 @@ class Activity:
 
 
         workOutName = workOutInfo[0]
-        # ADD: get date from start time
 
         # [{date, [{startDate: finishDate:, name:}, {startDate: finishDate:, name:}, ]
         if not self.dailyHistory:
@@ -90,18 +89,26 @@ class Activity:
             [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}]]]
         else:
             # ADD: we should decide the goal should be appended to the end of dailyHistory or not by chekcking dates
-
-            # when the date exists
-            self.dailyHistory[len(self.dailyHistory) - 1][1].append({self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName})
+            if self.dailyHistory[len(self.dailyHistory) - 1][0] == date:
+                # when the date exists
+                self.dailyHistory[len(self.dailyHistory) - 1][1].append({self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName})
 
             # when the date is new and we should append it
             # self.dailyHistory.append(date, [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}])
-
+            else:
+                self.dailyHistory.append(date, [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}])
         # find consumption 
         caloriesPerMin = self.findCaloriesPerMin(workOut, index, weight)
 
         # ADD: find out the gap between finish time and start time - fix 30
-        self.consumptionCalories += caloriesPerMin * 30
+        startTimeList = self.START_TIME.split("-")
+        finishTimeList = self.FINISH_TIME.split("-")
+
+        start = datetime(int(startTimeList[0]), int(startTimeList[1]), int(startTimeList[2]), int(startTimeList[3]), int(startTimeList[4]))
+        finish = datetime(int(finishTimeList[0]), int(finishTimeList[1]), int(finishTimeList[2]), int(finishTimeList[3]), int(finishTimeList[4]))
+        gap = int((finish - start).minute)
+        
+        self.consumptionCalories += caloriesPerMin * gap
         
         print("Exercise record submitted successfully.")
 
@@ -137,6 +144,12 @@ class Activity:
         self.rewriteFile()
         self.goalCalories = 0
         self.consumptionCalories = 0
+
+        currentDateList = account.currentDate.split("-")
+        pre = datetime(int(currentDateList[0]), int(currentDateList[1]), int(currentDateList[2]))
+        now = pre + pre.datetime.timedelta(days=1)
+
+        account.currentDate = now.strftime('%Y-%m-%s')
 
     def analyze(self):
         print("Enter time period")
