@@ -1,6 +1,6 @@
 import os
 import re
-from datetime import datetime
+import datetime
 
 # DEAL WITH MARK 'ADD'
 # 'FOR TEST PURPOSE': Print out results for test purpose
@@ -104,8 +104,8 @@ class Activity:
         startTimeList = start_time.split("-")
         finishTimeList = finish_time.split("-")
 
-        start = datetime(int(startTimeList[0]), int(startTimeList[1]), int(startTimeList[2]), int(startTimeList[3]), int(startTimeList[4]))
-        finish = datetime(int(finishTimeList[0]), int(finishTimeList[1]), int(finishTimeList[2]), int(finishTimeList[3]), int(finishTimeList[4]))
+        start = datetime.datetime(int(startTimeList[0]), int(startTimeList[1]), int(startTimeList[2]), int(startTimeList[3]), int(startTimeList[4]))
+        finish = datetime.datetime(int(finishTimeList[0]), int(finishTimeList[1]), int(finishTimeList[2]), int(finishTimeList[3]), int(finishTimeList[4]))
         gapList = str((finish - start)).split(":")
         gap = int(gapList[0]) * 60 + int(gapList[1])
         
@@ -146,20 +146,16 @@ class Activity:
         self.consumptionCalories = 0
 
         currentDateList = account.currentDate.split("-")
-        pre = datetime(int(currentDateList[0]), int(currentDateList[1]), int(currentDateList[2]))
-        now = pre + pre.datetime.timedelta(days=1)
+        pre = datetime.datetime(int(currentDateList[0]), int(currentDateList[1]), int(currentDateList[2]))
+        now = pre + datetime.timedelta(days=1)
 
-        account.currentDate = now.strftime('%Y-%m-%s')
+        account.currentDate = now.strftime('%Y-%m-%d')
 
     def analyze(self):
         print("Enter time period")
         print("(The entry period should not include the current date or the date after the current date, or the period of the date entry should not exceed 14 days.")
         print("ex)2020-10-01")
         print("ex)2020-10-01 ~ 2020-10-05")
-
-
-
-
 	
     def rewriteFile(self):
         if os.path.isfile(self.FILE_PATH):
@@ -167,6 +163,7 @@ class Activity:
         f = open(self.FILE_PATH, "w")
         # [[date , goal , consumption, [{startDate: finishDate:, name:}, {startDate: finishDate:, name: }]]
         # ADD: sort workout dateInfo
+        string = ""
         for index, [date, timeInfos] in enumerate(self.dailyHistory):
             string = f"{date}\t{self.goalCalories}\t{self.consumptionHistory[index]}\t"
             for index2, timeInfo in enumerate(timeInfos):
