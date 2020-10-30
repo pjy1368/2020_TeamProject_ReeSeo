@@ -100,13 +100,14 @@ class Activity:
         # find consumption 
         caloriesPerMin = self.findCaloriesPerMin(workOut, index, weight)
 
-        # ADD: find out the gap between finish time and start time - fix 30
-        startTimeList = self.START_TIME.split("-")
-        finishTimeList = self.FINISH_TIME.split("-")
+        # ADD: find out the gap between finish time and start time
+        startTimeList = start_time.split("-")
+        finishTimeList = finish_time.split("-")
 
         start = datetime(int(startTimeList[0]), int(startTimeList[1]), int(startTimeList[2]), int(startTimeList[3]), int(startTimeList[4]))
         finish = datetime(int(finishTimeList[0]), int(finishTimeList[1]), int(finishTimeList[2]), int(finishTimeList[3]), int(finishTimeList[4]))
-        gap = int((finish - start).minute)
+        gapList = str((finish - start)).split(":")
+        gap = int(gapList[0]) * 60 + int(gapList[1])
         
         self.consumptionCalories += caloriesPerMin * gap
         
@@ -139,7 +140,6 @@ class Activity:
 
 
     def tomorrow(self, account):
-        # Add:account.currentDay should point to next day
         self.consumptionHistory.append(self.consumptionCalories)
         self.rewriteFile()
         self.goalCalories = 0
@@ -176,10 +176,5 @@ class Activity:
                 string += f"{timeInfo[self.START_TIME]}~{timeInfo[self.FINISH_TIME]}:{timeInfo[self.NAME]}\t"
             string += "\n"
         f.write(string)
-
-    #ADD: when you reach the last day of goal, you should indicate to user that it's finished.
-    # goalCalories <= 0
-    # dailyHistory <= []
-
     
 
