@@ -15,14 +15,16 @@ class Activity:
 
     def __init__(self):
         self.FILE_PATH = "./user/history.txt"
-        self.dailyHistory = []
         self.TIME_INDEX = 3
         self.START_TIME = "startDate"
         self.FINISH_TIME = "finishDate"
         self.NAME = "name"
         self.goalCalories = 0
         self.consumptionCalories = 0
+
+        self.dailyHistory = []
         self.consumptionHistory = []
+        self.loadHistory()
         # dailyHistory has data structured like this for exmaple:
         # [[date, [{startDate: finishDate:, name:}, {startDate: finishDate:, name: }]]
         # value parts of date,  startDate, finishDate would be built-in date class
@@ -36,6 +38,8 @@ class Activity:
             print("1. submit exercise record")
             print("2. change to the next day")
             print("3. back")
+            print(self.dailyHistory)
+            print(self.consumptionHistory)
             sel = input("select menu: ")
             # only match either 1,2 or 3
             p = re.search(r"^(1|2|3)$", sel)
@@ -171,5 +175,36 @@ class Activity:
                     string += f"{timeInfo[self.START_TIME]}~{timeInfo[self.FINISH_TIME]}:{timeInfo[self.NAME]}"
                     continue
                 string += f"{timeInfo[self.START_TIME]}~{timeInfo[self.FINISH_TIME]}:{timeInfo[self.NAME]}\t"
+            string = string[:-1]
             string += "\n"
+            
         f.write(string)
+
+
+    def loadHistory(self):
+        if os.path.isfile(self.FILE_PATH):
+            f = open(self.FILE_PATH, "r")
+            lines = f.readlines()
+            for line in lines:
+                totalStr = line.strip().split("\t")
+                date, calorieGoal, calorieConsumption, timeStrList = totalStr[0], totalStr[1], totalStr[2], totalStr[3:]
+                timeInfo = []
+                for timeStr in timeStrList:
+                    timeRange, name = timeStr.split(":")
+                    startTime, finishTime = timeRange.split("~")
+                    timeInfo.append({self.START_TIME: startTime, self.FINISH_TIME: finishTime, self.NAME: name})
+                self.dailyHistory.append([date, timeInfo])
+                self.consumptionHistory.append(calorieConsumption)
+        # [[date, [{startDate: finishDate:, name:}, {startDate: finishDate:, name: }]]
+        # YYYY-MM-DD\t(CALORIE_GOAL)\t(CALORIE_CONSUMPTION)\t(START TIME)~(FINISH TIME):WORKOUT\n
+                    
+                    
+                    
+
+
+                
+        #[[date, 
+        #    [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}]]]
+        # YYYY-MM-DD\t(CALORIE_GOAL)\t(CALORIE_CONSUMPTION)\t(START TIME) ~ (FINISH TIME):WORKOUT\n
+            
+        # self.consumptionHistory = []
