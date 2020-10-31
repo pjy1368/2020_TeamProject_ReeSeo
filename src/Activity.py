@@ -149,7 +149,7 @@ class Activity:
         pre = datetime.datetime(int(currentDateList[0]), int(currentDateList[1]), int(currentDateList[2]))
         now = pre + datetime.timedelta(days=1)
         account.currentDate = now.strftime('%Y-%m-%d')
-        account.revise([account.name, account.gender, account.birth, account.currentDate, account.height, account.weight], False)
+        account.revise([], False)
 
     def analyze(self):
         print("Enter time period")
