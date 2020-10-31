@@ -110,6 +110,12 @@ def subMitExerciseRecord(account):
     goal = account.goal
     activity = account.activity
     while True:
+        # back to main page if goal.txt doesn't exist
+        if not goal.isGoal():
+            print("You should set your goal first.")
+            input()
+            break
+        
         sel = activity.submit()
         if sel == "1":
             activity.submitWorkOutRecord(account)
