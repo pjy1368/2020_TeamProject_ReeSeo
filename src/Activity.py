@@ -38,8 +38,6 @@ class Activity:
             print("1. submit exercise record")
             print("2. change to the next day")
             print("3. back")
-            print(self.dailyHistory)
-            print(self.consumptionHistory)
             sel = input("select menu: ")
             # only match either 1,2 or 3
             p = re.search(r"^(1|2|3)$", sel)
@@ -170,15 +168,30 @@ class Activity:
         string = ""
         for index, [date, timeInfos] in enumerate(self.dailyHistory):
             string = f"{date}\t{self.goalCalories}\t{self.consumptionHistory[index]}\t"
-            for index2, timeInfo in enumerate(timeInfos):
-                if index2 == len(timeInfos) - 1:
-                    string += f"{timeInfo[self.START_TIME]}~{timeInfo[self.FINISH_TIME]}:{timeInfo[self.NAME]}"
-                    continue
-                string += f"{timeInfo[self.START_TIME]}~{timeInfo[self.FINISH_TIME]}:{timeInfo[self.NAME]}\t"
-            string = string[:-1]
+            list = []
+            for timeInfo in timeInfos:
+                timeInfoList = []
+                timeInfoList.append(timeInfo[self.START_TIME])
+                timeInfoList.append("~")
+                timeInfoList.append(timeInfo[self.FINISH_TIME])
+                timeInfoList.append(":")
+                timeInfoList.append(timeInfo[self.NAME])
+                list.append(timeInfoList)
+
+            sorted_list = sorted(list, key=lambda t: datetime.datetime.strptime(t[0], '%Y-%m-%d-%H-%M'))
+
+            for index2, temp in enumerate(sorted_list):
+                if index2 == len(sorted_list) - 1:
+                    for i in temp:
+                        string += i
+                else:
+                    for i in temp:
+                        string += i
+                    string += "\t"
             string += "\n"
             
         f.write(string)
+        f.close()
 
 
     def loadHistory(self):
