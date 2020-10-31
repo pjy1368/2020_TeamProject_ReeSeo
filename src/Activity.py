@@ -116,35 +116,62 @@ class Activity:
 
         list = None
         pre = None
+
         while True:
-            startTime = input("Enter exercise started time: ")
-            list = startTime.split("-")
-            pre = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
+            while True:
+                startTime = input("Enter exercise started time: ")
+                list = startTime.split("-")
+                pre = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
 
-            if not self.dailyValid(startTime):
-                continue
+                if not self.dailyValid(startTime):
+                    continue
 
-            if account.currentDate != (list[0] + "-" + list[1] + "-" + list[2]):
-                print("Start date and current date must be the same.")
-                input()
-                os.system('cls')
-                continue
-            break
-        
-        while True:
-            finishTime = input("Enter exercise finished time: ")
-
-            if not self.dailyValid(finishTime, pre):
-                continue
+                if account.currentDate != (list[0] + "-" + list[1] + "-" + list[2]):
+                    print("Start date and current date must be the same.")
+                    input()
+                    os.system('cls')
+                    continue
+                break
             
-            list = finishTime.split("-")
-            now = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
-            if now > pre + datetime.timedelta(days=1):
-                print("Finish date must not exceed one day from the start date.")
-                input()
-                os.system('cls')
-                continue
+            while True:
+                finishTime = input("Enter exercise finished time: ")
+
+                if not self.dailyValid(finishTime, pre):
+                    continue
+                
+                list = finishTime.split("-")
+                now = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
+                if now > pre + datetime.timedelta(days=1):
+                    print("Finish date must not exceed one day from the start date.")
+                    input()
+                    os.system('cls')
+                    continue
+                break
+
+            for dateStr, timeInfos in self.dailyHistory:
+                startTimeDate = self.createDatetime(startTime)
+                finishTimeDate = self.createDatetime(finishTime)
+                print(dateStr)
+                dateWritten = self.createDatetime(dateStr)
+                
+                if dateWritten == startTimeDate or (dateWritten + datetime.timedelta(days=1) == startTimeDate):
+                    for timeInfo in timeInfos:
+                        startWrittenTime = self.createDatetime(timeInfo[self.START_TIME])
+                        finishWrittenTime = self.createDatetime(timeInfo[self.FINISH_TIME])
+                        if  startTimeDate <= startWrittenTime <= finishWrittenTime <= finishTimeDate:
+                            print("time is overlapped. try again.")
+                            input()
+                            continue
+                        elif startWrittenTime <= startTimeDate <= finishWrittenTime:
+                            print("time is overlapped. try again.")
+                            input()
+                            continue
+                        elif startWrittenTime <= finishTimeDate <= finishWrittenTime:
+                            print("time is overlapped. try again.")
+                            input()
+                            continue
             break
+                      
 
         workOutList = workOut.workOutList
         workOutInfo = workOutList[int(index)]
