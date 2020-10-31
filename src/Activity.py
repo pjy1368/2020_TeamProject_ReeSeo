@@ -72,11 +72,12 @@ class Activity:
         
 
         if re.search('^[0-9]{4}-([0-9]){2}-([0-9]){2}$', dateStr):
+
             date = self.createDatetime(dateStr)
             for index, [date, timeInfos] in enumerate(self.dailyHistory):
                 if datetime == date:
                     consumption = self.consumptionHistory[index]
-                    goal = self.goalHisotry[index]
+                    goal = self.goalHistory[index]
                     achievementRate = floor(consumption/goal * 100) / 100
                     print(f"{date}: {consumption}kcal({achievementRate})%")
 
