@@ -58,7 +58,6 @@ class Activity:
 
         self.goalCalories = goal.calories
 
-        # ADD need to change account.currentDate to string
         date = account.currentDate
 
         # select a workout
@@ -70,12 +69,12 @@ class Activity:
         FORMAT_ERR_MSG = "Please enter the correct format of the time!"
         LOGICAL_ERR_MSG = "Finished time is earlier than start time!"
 
-        start_time = input("Enter exercise started time: ")
+        startTime = input("Enter exercise started time: ")
         # ADD: check if date input is valid!
         if False:
             print(FORMAT_ERR_MSG)
 
-        finish_time = input("Enter exercise finished time: ")
+        finishTime = input("Enter exercise finished time: ")
         # ADD: check if date input is valid!
         if False:
             print(FORMAT_ERR_MSG)
@@ -90,23 +89,23 @@ class Activity:
         # [{date, [{startDate: finishDate:, name:}, {startDate: finishDate:, name:}, ]
         if not self.dailyHistory:
             self.dailyHistory = [[date, 
-            [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}]]]
+            [{self.START_TIME: startTime, self.FINISH_TIME: finishTime, self.NAME: workOutName}]]]
         else:
-            # ADD: we should decide the goal should be appended to the end of dailyHistory or not by chekcking dates
+            # chekcking dates to decide where new data should be appended:
             if self.dailyHistory[len(self.dailyHistory) - 1][0] == date:
-                # when the date exists
-                self.dailyHistory[len(self.dailyHistory) - 1][1].append({self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName})
+                # when the date exists in dailyHistory
+                self.dailyHistory[len(self.dailyHistory) - 1][1].append({self.START_TIME: startTime, self.FINISH_TIME: finishTime, self.NAME: workOutName})
 
-            # when the date is new and we should append it
-            # self.dailyHistory.append(date, [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}])
+            # when the date can't be found in dailyHistory
             else:
-                self.dailyHistory.append([date, [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}]])
-        # find consumption 
+                self.dailyHistory.append([date, [{self.START_TIME: startTime, self.FINISH_TIME: finishTime, self.NAME: workOutName}]])
+
+        # compute consumption 
         caloriesPerMin = self.findCaloriesPerMin(workOut, index, weight)
 
-        # ADD: find out the gap between finish time and start time
-        startTimeList = start_time.split("-")
-        finishTimeList = finish_time.split("-")
+        # find out the gap between finish time and start time
+        startTimeList = startTime.split("-")
+        finishTimeList = finishTime.split("-")
 
         start = datetime.datetime(int(startTimeList[0]), int(startTimeList[1]), int(startTimeList[2]), int(startTimeList[3]), int(startTimeList[4]))
         finish = datetime.datetime(int(finishTimeList[0]), int(finishTimeList[1]), int(finishTimeList[2]), int(finishTimeList[3]), int(finishTimeList[4]))
@@ -157,7 +156,6 @@ class Activity:
             os.remove(self.FILE_PATH)
         f = open(self.FILE_PATH, "w")
         # [[date , goal , consumption, [{startDate: finishDate:, name:}, {startDate: finishDate:, name: }]]
-        # ADD: sort workout dateInfo
         string = ""
         for index, [date, timeInfos] in enumerate(self.dailyHistory):
             string = f"{date}\t{self.goalCalories}\t{self.consumptionHistory[index]}\t"
@@ -201,3 +199,5 @@ class Activity:
                     timeInfo.append({self.START_TIME: startTime, self.FINISH_TIME: finishTime, self.NAME: name})
                 self.dailyHistory.append([date, timeInfo])
                 self.consumptionHistory.append(float(calorieConsumption))
+
+        
