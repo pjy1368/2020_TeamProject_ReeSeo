@@ -121,23 +121,14 @@ class Activity:
         for calorieIndex, calorieRange in enumerate(workOut.calorieRanges):
             if calorieIndex == 0:
                 if float(weight) < float(workOut.calorieRanges[1]):
-                    print("test case 1")
                     caloriesPerMin = float(workOut.workOutList[index][1]["below"])
-                    print(workOut.workOutList)
                     break
             elif calorieIndex == len(workOut.calorieRanges) - 1:
-                print("test case 2")
                 caloriesPerMin = float(workOut.workOutList[index][1]["above"])
-                print(workOut.workOutList)
                 break
             elif float(weight) >= int(calorieRange):
-                print("test case 3")
                 caloriesPerMin = float(workOut.workOutList[index][1][calorieRange])
-                print(workOut.workOutList[index][1][calorieRange])
-                print(workOut.workOutList)
                 break
-        # test purpose
-        print(caloriesPerMin)
         return caloriesPerMin
 
 
@@ -208,16 +199,3 @@ class Activity:
                     timeInfo.append({self.START_TIME: startTime, self.FINISH_TIME: finishTime, self.NAME: name})
                 self.dailyHistory.append([date, timeInfo])
                 self.consumptionHistory.append(calorieConsumption)
-        # [[date, [{startDate: finishDate:, name:}, {startDate: finishDate:, name: }]]
-        # YYYY-MM-DD\t(CALORIE_GOAL)\t(CALORIE_CONSUMPTION)\t(START TIME)~(FINISH TIME):WORKOUT\n
-                    
-                    
-                    
-
-
-                
-        #[[date, 
-        #    [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}]]]
-        # YYYY-MM-DD\t(CALORIE_GOAL)\t(CALORIE_CONSUMPTION)\t(START TIME) ~ (FINISH TIME):WORKOUT\n
-            
-        # self.consumptionHistory = []
