@@ -197,29 +197,11 @@ class Activity:
                     os.system('cls')
                     continue
                 break
-
-            for dateStr, timeInfos in self.dailyHistory:
-                startTimeDate = self.createDatetime(startTime)
-                finishTimeDate = self.createDatetime(finishTime)
-                print(dateStr)
-                dateWritten = self.createDatetime(dateStr)
-                
-                if dateWritten == startTimeDate or (dateWritten + datetime.timedelta(days=1) == startTimeDate):
-                    for timeInfo in timeInfos:
-                        startWrittenTime = self.createDatetime(timeInfo[self.START_TIME])
-                        finishWrittenTime = self.createDatetime(timeInfo[self.FINISH_TIME])
-                        if  startTimeDate <= startWrittenTime <= finishWrittenTime <= finishTimeDate:
-                            print("time is overlapped. try again.")
-                            input()
-                            continue
-                        elif startWrittenTime <= startTimeDate <= finishWrittenTime:
-                            print("time is overlapped. try again.")
-                            input()
-                            continue
-                        elif startWrittenTime <= finishTimeDate <= finishWrittenTime:
-                            print("time is overlapped. try again.")
-                            input()
-                            continue
+            
+            if not self.isTimeRangeValid(startTime, finishTime):
+                print("you already have a workout record in the given period.")
+                input()
+                continue
             break
                       
 
@@ -479,3 +461,36 @@ class Activity:
                 return True
         return False
         
+    def isIntervalLappedOver(self, interval1, interval2):
+        a, b = interval1
+        c, d = interval2
+        if  c <= a <= d:
+            return True
+        elif c <= b <= d:
+            return True
+        elif a <= c <= d <= b:
+            return True
+        return False
+    
+    # check if given time is overlapped when given date are the same
+    def isTimeInfoLappedOver(self, dateWritten, dateToBeChecked, timeInfos, timeToBeChecked):
+        if dateWritten == dateToBeChecked or (dateWritten + datetime.timedelta(days=1) == dateToBeChecked):
+            for timeInfo in timeInfos:
+                timeWritten = [self.createDatetime(timeInfo[self.START_TIME]), self.createDatetime(timeInfo[self.FINISH_TIME])]
+                if self.isIntervalLappedOver(timeToBeChecked, timeWritten):
+                    return True
+        return False
+    
+    # check if given time range is valid
+    def isTimeRangeValid(self, startTime, finishTime):
+        for dateStr, timeInfos in self.dailyHistory:
+            dateWritten = self.createDatetime(dateStr)
+            dateSlicedFromStart = '-'.join(startTime.split('-')[0:3])
+            dateToBeChecked = self.createDatetime(dateSlicedFromStart)
+            dateInputs = [self.createDatetime(startTime), self.createDatetime(finishTime)]
+            if self.isTimeInfoLappedOver(dateWritten, dateToBeChecked, timeInfos, dateInputs):
+                return False
+        return True
+
+        
+    
