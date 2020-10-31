@@ -76,7 +76,7 @@ class Activity:
             for index, [date, timeInfos] in enumerate(self.dailyHistory):
                 if datetime == date:
                     consumption = self.consumptionHistory[index]
-                    goal = self.goalHisotry[index]
+                    goal = self.goalHistory[index]
                     achievementRate = floor(consumption/goal * 100) / 100
                     print(f"{date}: {consumption}kcal({achievementRate})%")
 
@@ -95,6 +95,7 @@ class Activity:
                     print(f"{date}: {consumption}kcal({achievementRate})%")
         else:
             print("an error occured.")
+        input()
         return True
 
     def submitWorkOutRecord(self, account):
