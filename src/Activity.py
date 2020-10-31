@@ -1,6 +1,7 @@
 import os
 import re
 import datetime
+from math import floor
 
 # DEAL WITH MARK 'ADD'
 # 'FOR TEST PURPOSE': Print out results for test purpose
@@ -21,9 +22,9 @@ class Activity:
         self.NAME = "name"
         self.goalCalories = 0
         self.consumptionCalories = 0
-
         self.dailyHistory = []
         self.consumptionHistory = []
+        self.goalHistory = []
         self.loadHistory()
         # dailyHistory has data structured like this for exmaple:
         # [[date, [{startDate: finishDate:, name:}, {startDate: finishDate:, name: }]]
@@ -38,6 +39,7 @@ class Activity:
             print("1. submit exercise record")
             print("2. change to the next day")
             print("3. back")
+            # REMOVE only for test purpose
             print(self.dailyHistory)
             print(self.consumptionHistory)
             sel = input("select menu: ")
@@ -48,7 +50,52 @@ class Activity:
                 continue
             break
         return sel
+    
+    def analyze(self):
+        print("Enter time period")
+        print("(The entry period should not include the current date or the date after the current date, or the period of the date entry should not exceed 14 days.")
+        print("ex)2020-10-01")
+        print("ex)2020-10-01 ~ 2020-10-05")
+        dateStr = input()
+        if dateStr == 'q':
+            return False
+
+        # check date validation:
+        # 1. if any record is included in the date range
+        # if not self.isInDailyHitory(dateStr):
+        # 2. YYYY-MM-DD ~ YYYY-MM-DD OR YYYY-MM-DD
+        # 3. if YYYY-MM-DD => cannont exceed 14 days
+        # 4. if it is before currentTime
+        # if input is a date
+
+
         
+
+        if re.search('^[0-9]{4}-([0-9]){2}-([0-9]){2}$', dateStr):
+            date = self.createDatetime(dateStr)
+            for index, [date, timeInfos] in enumerate(self.dailyHistory):
+                if datetime == date:
+                    consumption = self.consumptionHistory[index]
+                    goal = self.goalHisotry[index]
+                    achievementRate = floor(consumption/goal * 100) / 100
+                    print(f"{date}: {consumption}kcal({achievementRate})%")
+
+        elif re.search('^([0-9]{4}-([0-9]){2}-([0-9]){2}) ~ ([0-9]{4}-([0-9]){2}-([0-9]){2})$', dateStr):
+            startDateStr, finishDateStr = [dateStr.strip() for dateStr in dateStr.split('~')]
+            print(startDateStr, finishDateStr)
+            startDate, finishDate = [self.createDatetime(startDateStr), self.createDatetime(finishDateStr)]            
+            for index, [date, timeInfos] in enumerate(self.dailyHistory):
+                if startDate <= self.createDatetime(date) <= finishDate:
+                    
+                    consumption = self.consumptionHistory[index]
+                    goal = self.goalHistory[index]
+                    print(consumption)
+                    print(goal)
+                    achievementRate = floor(consumption/goal * 100)
+                    print(f"{date}: {consumption}kcal({achievementRate})%")
+        else:
+            print("an error occured.")
+        return True
 
     def submitWorkOutRecord(self, account):
         # obtain variables from account object
@@ -135,6 +182,7 @@ class Activity:
 
     def tomorrow(self, account):
         self.consumptionHistory.append(self.consumptionCalories)
+        self.goalHistory.append(self.goalCalories)
         self.rewriteFile()
         self.goalCalories = 0
         self.consumptionCalories = 0
@@ -145,11 +193,6 @@ class Activity:
         account.currentDate = now.strftime('%Y-%m-%d')
         account.revise([account.name, account.gender, account.birth, account.currentDate, account.height, account.weight], False)
 
-    def analyze(self):
-        print("Enter time period")
-        print("(The entry period should not include the current date or the date after the current date, or the period of the date entry should not exceed 14 days.")
-        print("ex)2020-10-01")
-        print("ex)2020-10-01 ~ 2020-10-05")
 	
     def rewriteFile(self):
         if os.path.isfile(self.FILE_PATH):
@@ -185,9 +228,23 @@ class Activity:
                     timeInfo.append({self.START_TIME: startTime, self.FINISH_TIME: finishTime, self.NAME: name})
                 self.dailyHistory.append([date, timeInfo])
                 self.consumptionHistory.append(float(calorieConsumption))
+                self.goalHistory.append(float(calorieGoal))
 
     def createDatetime(self, string):
         strList = string.split('-')
-        year, month, day, hour, minute = [int(strSplitted) for strSplitted in strList]
-        return datetime.datetime(year, month, day, hour, minute)
+        print(strList)
+        if len(strList) == 3:
+            year, month, day = [int(strSplitted) for strSplitted in strList]
+            return datetime.datetime(year, month , day)
+        elif len(strList) == 5:
+            year, month, day, hour, minute = [int(strSplitted) for strSplitted in strList]
+            return datetime.datetime(year, month, day, hour, minute)
+        else:
+            print("An Error occured in createDatetime")
+    
+    def isInDailyHitory(self, dateStr):
+        for date, timeInfos in self.dailyHistory:
+            if date == dateStr:
+                return True
+        return False
         

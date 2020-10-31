@@ -90,13 +90,15 @@ def viewAndModifyListOfExercise(account):
             input(ERR_MESSAGE)
             return
 
-    
-
-
-
-
 def analyzeMyExerciseRecord(account):
-    print("This is analyze my exercise record")
+    activity = account.activity
+    hasToTryAgain = activity.analyze()
+    while hasToTryAgain:
+        # input is not valid => try again
+        # input is valid => try again
+        # input was q => don't try again
+        activity.analyze()
+        input()
 
 def setAndViewMyExerciseGoal(account):
     if account.goal.isGoal():
