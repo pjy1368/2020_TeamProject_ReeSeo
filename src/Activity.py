@@ -174,7 +174,7 @@ class Activity:
                     continue
 
                 list = startTime.split("-")
-                pre = datetime.datetime(int(list[0]), int(list[1]), int(list[2]))
+                pre = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
 
                 if account.currentDate != (list[0] + "-" + list[1] + "-" + list[2]):
                     print("Start date and current date must be the same.")
@@ -211,14 +211,17 @@ class Activity:
                         if  startTimeDate <= startWrittenTime <= finishWrittenTime <= finishTimeDate:
                             print("time is overlapped. try again.")
                             input()
+                            os.system('cls')
                             continue
                         elif startWrittenTime <= startTimeDate <= finishWrittenTime:
                             print("time is overlapped. try again.")
                             input()
+                            os.system('cls')
                             continue
                         elif startWrittenTime <= finishTimeDate <= finishWrittenTime:
                             print("time is overlapped. try again.")
                             input()
+                            os.system('cls')
                             continue
             break
                       
@@ -258,6 +261,7 @@ class Activity:
         self.consumptionCalories += caloriesPerMin * gap
 
         print("Exercise record submitted successfully.")
+        os.system('cls')
 
     def dailyValid(self, date, pre = None): 
         if len(date) != 16:
@@ -317,18 +321,19 @@ class Activity:
         if not check:
             return False
 
-        if pre != None and pre > now:
-            print("Finish date is earlier than start date.")
-            input()
-            os.system('cls')
-            return False
-
         time = list[3] + "-" + list[4]
 
         p = re.search("^(([0-1][0-9])|2[0-3])-([0-5][0-9])$", time)
 
         if not p:
             print("Iligeal form of time. (00-00 ~ 23-59)")
+            input()
+            os.system('cls')
+            return False
+
+        now = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
+        if pre != None and pre > now:
+            print("Finish date is earlier than start date.")
             input()
             os.system('cls')
             return False
