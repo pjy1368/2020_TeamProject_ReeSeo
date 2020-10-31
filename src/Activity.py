@@ -69,16 +69,21 @@ class Activity:
         FORMAT_ERR_MSG = "Please enter the correct format of the time!"
         LOGICAL_ERR_MSG = "Finished time is earlier than start time!"
 
-        startTime = input("Enter exercise started time: ")
-        # ADD: check if date input is valid!
-        if False:
-            print(FORMAT_ERR_MSG)
+        while True:
+            startTime = input("Enter exercise started time: ")
 
-        finishTime = input("Enter exercise finished time: ")
-        # ADD: check if date input is valid!
-        if False:
-            print(FORMAT_ERR_MSG)
-            print(LOGICAL_ERR_MSG)
+            if not self.dailyValid(startTime):
+                continue
+            break
+        
+        list = startTime.split("-")
+        pre = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
+        while True:
+            finishTime = input("Enter exercise finished time: ")
+
+            if not self.dailyValid(finishTime, pre):
+                continue
+            break
 
         workOutList = workOut.workOutList
         workOutInfo = workOutList[int(index)]
@@ -115,6 +120,83 @@ class Activity:
         self.consumptionCalories += caloriesPerMin * gap
 
         print("Exercise record submitted successfully.")
+
+    def dailyValid(self, date, pre = None): 
+        if len(date) != 16:
+            print("Length of string must be 16.")
+            input()
+            os.system('cls')
+            return False
+        
+        if date[4] != '-' or date[7] != '-' or date[10] != '-' or date[13] != '-':
+            print("Each year, month and date are must classified as '-' with followed form (YYYY-mm-dd-HH-MM)")
+            input()
+            os.system('cls')
+            return False
+        
+        list = date.split('-')
+
+        if len(list[0]) != 4 or len(list[1]) != 2 or len(list[2]) != 2 or len(list[3]) != 2 or len(list[4]) != 2:
+            print("Each year, month and date are must classified as '-' with followed form (YYYY-mm-dd-HH-MM)")
+            input()
+            os.system('cls')
+            return False
+        
+        check = True
+        for i in list:
+            p = re.search(r'^[0-9]{1,4}$', i)
+
+            if not p:
+                check = False
+                print("Character that is not a digit or '-' are illegal.")
+                input()
+                os.system('cls')
+                break
+
+        if not check:
+            return False
+
+        dailyNotTime = list[0] + "-" + list[1] + "-" + list[2]
+        p = re.search(r'^((19[7-9][0-9]|20[0-2][0-9]|203[0-6])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(2037-(0[1-9]|1[0-1])-(0[1-9]|[12][0-9]|3[01])))$', dailyNotTime)
+
+        if not p:
+            print("Iligeal form of date. (1970-01-01 ~ 2037-11-30)")
+            input()
+            os.system('cls')
+            return False
+        
+        check = True
+        while check:
+            try:
+                now = datetime.datetime(int(list[0]), int(list[1]), int(list[2]))
+                break
+            except ValueError:
+                print("Inexistent form of date followed by Gregorian Calendar")
+                input()
+                os.system('cls')
+                check = False
+        
+        if not check:
+            return False
+
+        if pre != None and pre > now:
+            print("Finish date is earlier than start date.")
+            input()
+            os.system('cls')
+            return False
+
+        time = list[3] + "-" + list[4]
+
+        p = re.search("^(([0-1][0-9])|2[0-3])-([0-5][0-9])$", time)
+
+        if not p:
+            print("Iligeal form of time. (00-00 ~ 23-59)")
+            input()
+            os.system('cls')
+            return False
+
+        os.system('cls')
+        return True
 
 
     def findCaloriesPerMin(self, workOut, index, weight):
