@@ -68,7 +68,6 @@ class Activity:
         # 4. if it is before currentTime
         # if input is a date
 
-
         
         currentDateList = account.currentDate.split("-")
         currentDateTime = datetime.datetime(int(currentDateList[0]), int(currentDateList[1]), int(currentDateList[2]))
@@ -117,9 +116,15 @@ class Activity:
                 input()
                 os.system('cls')
                 return True
-                
+
             if dateStrStartDateTime >= dateStrFinishDateTime:
                 print("Finish date must not exceed one day from the start date.")
+                input()
+                os.system('cls')
+                return True
+
+            if dateStrFinishDateTime - datetime.timedelta(days=14) < dateStrStartDateList:
+                print("The period must not exceed 14 days.")
                 input()
                 os.system('cls')
                 return True
