@@ -56,6 +56,7 @@ class Activity:
         print("(The entry period should not include the current date or the date after the current date, or the period of the date entry should not exceed 14 days.")
         print("ex)2020-10-01")
         print("ex)2020-10-01 ~ 2020-10-05")
+        print("press q to exit")
         dateStr = input()
         if dateStr == 'q':
             return False
