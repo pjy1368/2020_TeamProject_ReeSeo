@@ -81,23 +81,30 @@ def viewAndModifyListOfExercise(account):
                     break
                 else:
                     print(ERR_MESSAGE)
+                    os.system('cls')
                     break
         elif sel == '2':
+            os.system('cls')
             workOut.addWorkOut()
+            os.system('cls')
         elif sel == '3':
             return
         else:
             input(ERR_MESSAGE)
+            os.system('cls')
             return
 
 def analyzeMyExerciseRecord(account):
+    os.system('cls')
     activity = account.activity
     hasToTryAgain = activity.analyze(account)
+    os.system('cls')
     while hasToTryAgain:
         # input is not valid => try again
         # input is valid => try again
         # input was q => don't try again
         activity.analyze(account)
+        os.system('cls')
 
 def setAndViewMyExerciseGoal(account):
     if account.goal.isGoal():

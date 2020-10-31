@@ -84,9 +84,12 @@ class WorkOut:
         SELECT_MENU = "select menu: "
         while True:
             sel = input(SELECT_MENU)
+            os.system('cls')
             p = re.search(r"^(1|2|3)$", sel)
             if not p:
                 print("Invalid input. please try agian.")
+                input()
+                os.system('cls')
                 continue
             break
         return sel
@@ -110,10 +113,14 @@ class WorkOut:
             p = re.search(r"^[0-9]{1," + str(length) + r"}$", string)
             if not p:
                 print("Contains invalid characters!")
+                input()
+                os.system('cls')
                 continue
             index = int(string) - 1
             if not (0 <= index < self.countWorkouts):
                 print("The number does not exist in the list!")
+                input()
+                os.system('cls')
                 continue
             break
         return index
