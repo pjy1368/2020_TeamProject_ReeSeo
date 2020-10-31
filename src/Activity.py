@@ -123,7 +123,7 @@ class Activity:
                 os.system('cls')
                 return True
 
-            if dateStrFinishDateTime - datetime.timedelta(days=14) < dateStrStartDateList:
+            if dateStrFinishDateTime - datetime.timedelta(days=14) > dateStrStartDateTime:
                 print("The period must not exceed 14 days.")
                 input()
                 os.system('cls')
