@@ -65,23 +65,35 @@ class Activity:
         workOut.viewWorkOutList()
         index = workOut.getWorkOutSelection(SEL_STR)
 
-        # enter date info
-        FORMAT_ERR_MSG = "Please enter the correct format of the time!"
-        LOGICAL_ERR_MSG = "Finished time is earlier than start time!"
-
+        list = None
+        pre = None
         while True:
             startTime = input("Enter exercise started time: ")
+            list = startTime.split("-")
+            pre = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
 
             if not self.dailyValid(startTime):
                 continue
+
+            if account.currentDate != (list[0] + "-" + list[1] + "-" + list[2]):
+                print("Start date and current date must be the same.")
+                input()
+                os.system('cls')
+                continue
             break
         
-        list = startTime.split("-")
-        pre = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
         while True:
             finishTime = input("Enter exercise finished time: ")
 
             if not self.dailyValid(finishTime, pre):
+                continue
+            
+            list = finishTime.split("-")
+            now = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
+            if now > pre + datetime.timedelta(days=1):
+                print("Finish date must not exceed one day from the start date.")
+                input()
+                os.system('cls')
                 continue
             break
 
