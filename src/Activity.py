@@ -96,6 +96,7 @@ class Activity:
                     print(f"{date}: {consumption}kcal({achievementRate})%")
         else:
             print("an error occured.")
+        input()
         return True
 
     def submitWorkOutRecord(self, account):

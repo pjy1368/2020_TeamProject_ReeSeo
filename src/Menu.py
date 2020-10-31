@@ -98,7 +98,6 @@ def analyzeMyExerciseRecord(account):
         # input is valid => try again
         # input was q => don't try again
         activity.analyze()
-        input()
 
 def setAndViewMyExerciseGoal(account):
     if account.goal.isGoal():
