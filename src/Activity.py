@@ -168,12 +168,13 @@ class Activity:
 
         while True:
             while True:
-                startTime = input("Enter exercise started time: ")
-                list = startTime.split("-")
-                pre = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
+                startTime = input("Enter exercise started time (YYYY-mm-dd-HH-MM): ")
 
                 if not self.dailyValid(startTime):
                     continue
+
+                list = startTime.split("-")
+                pre = datetime.datetime(int(list[0]), int(list[1]), int(list[2]))
 
                 if account.currentDate != (list[0] + "-" + list[1] + "-" + list[2]):
                     print("Start date and current date must be the same.")
@@ -183,7 +184,7 @@ class Activity:
                 break
             
             while True:
-                finishTime = input("Enter exercise finished time: ")
+                finishTime = input("Enter exercise finished time (YYYY-mm-dd-HH-MM): ")
 
                 if not self.dailyValid(finishTime, pre):
                     continue
