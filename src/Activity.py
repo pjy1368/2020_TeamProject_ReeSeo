@@ -38,6 +38,8 @@ class Activity:
             print("1. submit exercise record")
             print("2. change to the next day")
             print("3. back")
+            print(self.dailyHistory)
+            print(self.consumptionHistory)
             sel = input("select menu: ")
             # only match either 1,2 or 3
             p = re.search(r"^(1|2|3)$", sel)
@@ -98,7 +100,7 @@ class Activity:
             # when the date is new and we should append it
             # self.dailyHistory.append(date, [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}])
             else:
-                self.dailyHistory.append(date, [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}])
+                self.dailyHistory.append([date, [{self.START_TIME: start_time, self.FINISH_TIME: finish_time, self.NAME: workOutName}]])
         # find consumption 
         caloriesPerMin = self.findCaloriesPerMin(workOut, index, weight)
 
@@ -198,4 +200,4 @@ class Activity:
                     startTime, finishTime = timeRange.split("~")
                     timeInfo.append({self.START_TIME: startTime, self.FINISH_TIME: finishTime, self.NAME: name})
                 self.dailyHistory.append([date, timeInfo])
-                self.consumptionHistory.append(calorieConsumption)
+                self.consumptionHistory.append(float(calorieConsumption))
