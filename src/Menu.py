@@ -92,12 +92,12 @@ def viewAndModifyListOfExercise(account):
 
 def analyzeMyExerciseRecord(account):
     activity = account.activity
-    hasToTryAgain = activity.analyze()
+    hasToTryAgain = activity.analyze(account)
     while hasToTryAgain:
         # input is not valid => try again
         # input is valid => try again
         # input was q => don't try again
-        activity.analyze()
+        activity.analyze(account)
 
 def setAndViewMyExerciseGoal(account):
     if account.goal.isGoal():

@@ -51,7 +51,7 @@ class Activity:
             break
         return sel
     
-    def analyze(self):
+    def analyze(self, account):
         print("Enter time period")
         print("(The entry period should not include the current date or the date after the current date, or the period of the date entry should not exceed 14 days.")
         print("ex)2020-10-01")
@@ -69,10 +69,23 @@ class Activity:
         # 4. if it is before currentTime
         # if input is a date
 
-
         
+        currentDateList = account.currentDate.split("-")
+        currentDateTime = datetime.datetime(int(currentDateList[0]), int(currentDateList[1]), int(currentDateList[2]))
 
         if re.search('^[0-9]{4}-([0-9]){2}-([0-9]){2}$', dateStr):
+            if not self.dailyNotTimeValid(dateStr):
+                return True
+
+            dateStrList = dateStr.split("-")
+            dateStrDateTime = datetime.datetime(int(dateStrList[0]), int(dateStrList[1]), int(dateStrList[2]))
+
+            if dateStrDateTime >= currentDateTime:
+                print("You must enter a date prior to the current date.")
+                input()
+                os.system('cls')
+                return True
+
             date = self.createDatetime(dateStr)
             for index, [date, timeInfos] in enumerate(self.dailyHistory):
                 if datetime == date:
@@ -83,6 +96,40 @@ class Activity:
 
         elif re.search('^([0-9]{4}-([0-9]){2}-([0-9]){2}) ~ ([0-9]{4}-([0-9]){2}-([0-9]){2})$', dateStr):
             startDateStr, finishDateStr = [dateStr.strip() for dateStr in dateStr.split('~')]
+
+            if not self.dailyNotTimeValid(startDateStr) or not self.dailyNotTimeValid(finishDateStr):
+                return True
+            
+            dateStrStartDateList = startDateStr.split("-")
+            dateStrStartDateTime = datetime.datetime(int(dateStrStartDateList[0]), int(dateStrStartDateList[1]), int(dateStrStartDateList[2]))
+
+            if dateStrStartDateTime >= currentDateTime:
+                print("You must enter a date prior to the current date.")
+                input()
+                os.system('cls')
+                return True
+
+            dateStrFinishDateList = finishDateStr.split("-")
+            dateStrFinishDateTime = datetime.datetime(int(dateStrFinishDateList[0]), int(dateStrFinishDateList[1]), int(dateStrFinishDateList[2]))
+
+            if dateStrFinishDateTime >= currentDateTime:
+                print("You must enter a date prior to the current date.")
+                input()
+                os.system('cls')
+                return True
+
+            if dateStrStartDateTime >= dateStrFinishDateTime:
+                print("Finish date must not exceed one day from the start date.")
+                input()
+                os.system('cls')
+                return True
+
+            if dateStrFinishDateTime - datetime.timedelta(days=14) > dateStrStartDateTime:
+                print("The period must not exceed 14 days.")
+                input()
+                os.system('cls')
+                return True
+
             print(startDateStr, finishDateStr)
             startDate, finishDate = [self.createDatetime(startDateStr), self.createDatetime(finishDateStr)]            
             for index, [date, timeInfos] in enumerate(self.dailyHistory):
@@ -96,8 +143,10 @@ class Activity:
                     print(f"{date}: {consumption}kcal({achievementRate})%")
         else:
             print("an error occured.")
-        input()
-        return True
+            print("Make sure you enter spaces before and after '~'.")
+            input()
+            os.system('cls')
+            return True
 
     def submitWorkOutRecord(self, account):
         # obtain variables from account object
@@ -284,6 +333,64 @@ class Activity:
             return False
 
         os.system('cls')
+        return True
+    
+    def dailyNotTimeValid(self, date):
+        if len(date) != 10:
+            print("Length of string must be 10.")
+            input()
+            os.system('cls')
+            return False
+        
+        if date[4] != '-' or date[7] != '-':
+            print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD)")
+            input()
+            os.system('cls')
+            return False
+        
+        list = date.split('-')
+
+        if len(list[0]) != 4 or len(list[1]) != 2 or len(list[2]) != 2:
+            print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD)")
+            input()
+            os.system('cls')
+            return False
+        
+        check = True
+        for i in list:
+            p = re.search(r'^[0-9]{1,4}$', i)
+
+            if not p:
+                check = False
+                print("Character that is not a digit or '-' are illegal.")
+                input()
+                os.system('cls')
+                break
+
+        if(not check):
+            return False
+
+        p = re.search(r'^((19[7-9][0-9]|20[0-2][0-9]|203[0-6])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(2037-(0[1-9]|1[0-1])-(0[1-9]|[12][0-9]|3[01])))$', date)
+
+        if not p:
+            print("Iligeal form of date. (1970-01-01 ~ 2037-11-30)")
+            input()
+            os.system('cls')
+            return False
+        
+        check = True
+        while check:
+            try:
+                now = datetime.datetime(int(list[0]), int(list[1]), int(list[2]))
+                break
+            except ValueError:
+                print("Inexistent form of date followed by Gregorian Calendar")
+                input()
+                os.system('cls')
+                check = False
+        
+        if not check:
+            return False
         return True
 
 
