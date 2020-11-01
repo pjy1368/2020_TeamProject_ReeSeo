@@ -68,13 +68,26 @@ class Goal:
             print("The maximum daily calorie is " + str(output) + " kcal. Please enter the goal daily calorie.") 
             print("The integer part of the value must be at least 2 digits and the decimal part must be 2 digits. At this point, the integer part must be positive")
             calories = input("-> ")
-            if not re.search(r"^([0-9]{2,}.[0-9]{2})$", calories):
-                os.system('cls')
+            p = re.search(r"^([0-9]{2,}.[0-9]{2})$", calories)
+            if not p:
                 print("The integer part of the value must be at least 2 digits and the decimal part must be at 2 digits. ")
                 print("At this point, the integer part must be positive.")
                 input()
                 os.system('cls')
                 continue
+            else:
+                numCalories = float(calories)
+                if numCalories < 10:
+                    print("The minimum daily calorie must be larger than or equal to 10.")
+                    input()
+                    os.system('cls')
+                    continue
+                elif numCalories > maxCalories:
+                    print("The maximum daily calorie must not be exceeded.")
+                    input()
+                    os.system('cls')
+                    continue
+                
             os.system('cls')
             break
         f = open(filePath, "w")
