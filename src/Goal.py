@@ -25,7 +25,7 @@ class Goal:
     # Set goal.
     def setGoal(self, account):
         filePath = "./user/goal.txt"
-        f = open(filePath, "w")
+        
 
         while True:
             print("<Setting goal>")
@@ -91,7 +91,7 @@ class Goal:
             
             os.system('cls')
             break
-        
+        f = open(filePath, "w")
         f.write(account.currentDate + "\n")
         f.write(term + "\n")
         f.write(str(float(calories)) + "\n")
@@ -117,9 +117,30 @@ class Goal:
             accountList = account.currentDate.split("-")
             now = datetime(int(accountList[0]), int(accountList[1]), int(accountList[2]))
 
+            
             if (now - pre).days == int(self.term):
                 print("Goal is complete.\n")
+                achievedDate = 0
+                activity = account.activity
+                dailyHistory = account.activity.dailyHistory
+                for index, [date, timeInfos] in enumerate(dailyHistory):
+                    dateWritten = activity.createDatetime(date)
+                    if pre <= dateWritten < now:
+                        consumption = activity.consumptionHistory[index]
+                        goal = activity.goalHistory[index]
+                        if consumption > goal:
+                            achievedDate += 1
+                achievementRate = (achievedDate / int(self.term)) * 100
+                achievedRateOutput = "%0.2f" % achievementRate
+                print(f"Your achievement rate is {achievedRateOutput}%")
+            
+                
+                            
+
+                    
                 # ADD: Achievement rate
+                
+
 
 
                 os.remove("./user/goal.txt")
