@@ -119,8 +119,8 @@ class Goal:
 
             if (now - pre).days == int(self.term):
                 print("Goal is complete.\n")
-                self.view()
-                input()
+                # ADD: Achievement rate
+
 
                 os.remove("./user/goal.txt")
                 self.__init__(account)
