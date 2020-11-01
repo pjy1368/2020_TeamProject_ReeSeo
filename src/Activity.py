@@ -212,6 +212,7 @@ class Activity:
             if not self.isTimeRangeValid(startTime, finishTime):
                 print("Existing exercise time overlaps!")
                 input()
+                os.system('cls')
                 return
             break
         os.system('cls')          
