@@ -128,8 +128,8 @@ def subMitExerciseRecord(account):
         elif sel == "2":
             # ADD: change the date
             print("The date has been changed.")
-            activity.tomorrow(account)
             print(f"Current Date: {account.currentDate}")
+            activity.tomorrow(account)
             input()
         elif sel == "3":
             return
