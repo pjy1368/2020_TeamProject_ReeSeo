@@ -306,10 +306,12 @@ class WorkOut:
                     print("Please enter digit between 1~500!")
                     input()
                     os.system('cls')
-                break
-            for indexCalories in range(self.countCalories):
-                key = self.calorieRanges[indexCalories]
-                self.workOutList[index][1][key] = self.rountUpWithinTwo(self.coefficient[indexCalories] * int(consumption))
+                else:
+                    for indexCalories in range(self.countCalories):
+                        key = self.calorieRanges[indexCalories]
+                        self.workOutList[index][1][key] = self.rountUpWithinTwo(self.coefficient[indexCalories] * int(consumption))
+                    break
+            
                 
         self.rewrite()
         os.system('cls')
