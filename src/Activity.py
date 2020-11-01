@@ -168,7 +168,7 @@ class Activity:
         date = account.currentDate
 
         # select a workout
-        SEL_STR = "Please select an exercise"
+        SEL_STR = "Please select an exercise: "
         workOut.viewWorkOutList()
         index = workOut.getWorkOutSelection(SEL_STR)
 
