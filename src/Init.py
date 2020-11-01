@@ -38,6 +38,9 @@ def login(account):
             if sel == "1":
                 os.system('cls')
                 account.create([1, 2, 3, 4, 5, 6])
+                print("Sign up completed." )
+                input()
+                os.system('cls')
                 return True
             elif sel == "2":
                 return False
