@@ -251,7 +251,7 @@ class Activity:
             return False
         
         if date[4] != '-' or date[7] != '-' or date[10] != '-' or date[13] != '-':
-            print("Each year, month and date are must classified as '-' with followed form (YYYY-mm-dd-HH-MM)")
+            print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD-HH-mm)")
             input()
             os.system('cls')
             return False
@@ -259,7 +259,7 @@ class Activity:
         list = date.split('-')
 
         if len(list[0]) != 4 or len(list[1]) != 2 or len(list[2]) != 2 or len(list[3]) != 2 or len(list[4]) != 2:
-            print("Each year, month and date are must classified as '-' with followed form (YYYY-mm-dd-HH-MM)")
+            print("Each year, month and date are must classified as '-' with followed form (YYYY-MM-DD-HH-mm)")
             input()
             os.system('cls')
             return False
