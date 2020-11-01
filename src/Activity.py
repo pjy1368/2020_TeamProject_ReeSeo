@@ -3,13 +3,6 @@ import re
 import datetime
 from math import floor
 
-# DEAL WITH MARK 'ADD'
-# 'FOR TEST PURPOSE': Print out results for test purpose
-# WHAT HASN'T BEEN TESTED(DATE NEEDED)
-# 1. WHEN YOU GO TO TOMORROW AND WRITE DOWN DAILY ACTIVITIES
-# 2. THE STRUCTURE OF dailyHistory changes with multiple dates
-# 3. analyze: couldn't proceed because there're issues dealing with date class
-
 class Activity:
     # Each Daily Activity saved like this example:
     # YYYY-MM-DD\t(CALORIE_GOAL)\t(CALORIE_CONSUMPTION)\t(START TIME) ~ (FINISH TIME):WORKOUT\n
