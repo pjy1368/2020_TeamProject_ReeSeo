@@ -99,13 +99,7 @@ def analyzeMyExerciseRecord(account):
     activity = account.activity
     hasToTryAgain = activity.analyze(account)
     os.system('cls')
-    while hasToTryAgain:
-        # input is not valid => try again
-        # input is valid => try again
-        # input was q => don't try again
-        hasToTryAgain = activity.analyze(account)
-        os.system('cls')
-
+    
 def setAndViewMyExerciseGoal(account):
     if account.goal.isGoal():
         account.goal.view()

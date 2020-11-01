@@ -60,7 +60,7 @@ class Activity:
         dateStr = input()
         if dateStr == 'q':
             return False
-
+        os.system("cls")
         # check date validation:
         # 1. if any record is included in the date range
         # if not self.isInDailyHitory(dateStr):
