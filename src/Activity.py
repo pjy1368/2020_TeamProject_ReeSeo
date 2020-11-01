@@ -87,7 +87,7 @@ class Activity:
                 return True
 
             date = self.createDatetime(dateStr)
-            for index, [date] in enumerate(self.dailyHistory):
+            for index, [date, timeInfos] in enumerate(self.dailyHistory):
                 if dateStr == date:
                     consumption = self.consumptionHistory[index]
                     goal = self.goalHistory[index]
