@@ -113,8 +113,6 @@ def setAndViewMyExerciseGoal(account):
         account.goal.setGoal(account)
 
 def subMitExerciseRecord(account):
-    ERR_MESSAGE = "An error occured. We'll load the previous page."
-    workOut = account.workOut
     goal = account.goal
     activity = account.activity
     while True:

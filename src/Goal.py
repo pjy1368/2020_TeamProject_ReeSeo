@@ -133,16 +133,6 @@ class Goal:
                 achievementRate = (achievedDate / int(self.term)) * 100
                 achievedRateOutput = "%0.2f" % achievementRate
                 print(f"Your achievement rate is {achievedRateOutput}%")
-            
-                
-                            
-
-                    
-                # ADD: Achievement rate
-                
-
-
-
                 os.remove("./user/goal.txt")
                 self.__init__(account)
         

@@ -87,7 +87,7 @@ class Activity:
                 return True
 
             date = self.createDatetime(dateStr)
-            for index, [date, timeInfos] in enumerate(self.dailyHistory):
+            for index, [date] in enumerate(self.dailyHistory):
                 if dateStr == date:
                     consumption = self.consumptionHistory[index]
                     goal = self.goalHistory[index]
@@ -468,7 +468,7 @@ class Activity:
             print("An Error occured in createDatetime")
     
     def isInDailyHitory(self, dateStr):
-        for date, timeInfos in self.dailyHistory:
+        for date in self.dailyHistory:
             if date == dateStr:
                 return True
         return False

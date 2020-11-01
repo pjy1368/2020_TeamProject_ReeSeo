@@ -79,8 +79,6 @@ class WorkOut:
         OPTION2 = "2. Add Exercise"
         OPTION3 = "3. Back"
         options = [OPTION1, OPTION2, OPTION3]
-        countOptions = len(options)
-
         
         SELECT_MENU = "select menu: "
         while True:
@@ -318,7 +316,6 @@ class WorkOut:
         os.system('cls')
 
     def deleteWorkOut(self, index):
-        workOutName = self.workOutList[index][0]
         self.workOutList.pop(index)
         self.countWorkouts -= 1
         self.rewrite()
