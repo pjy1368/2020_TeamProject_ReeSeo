@@ -389,7 +389,7 @@ class Activity:
         check = True
         while check:
             try:
-                now = datetime.datetime(int(list[0]), int(list[1]), int(list[2]))
+                datetime.datetime(int(list[0]), int(list[1]), int(list[2]))
                 break
             except ValueError:
                 print("Inexistent form of date followed by Gregorian Calendar")
