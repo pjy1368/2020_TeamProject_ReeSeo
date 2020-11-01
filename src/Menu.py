@@ -128,6 +128,7 @@ def subMitExerciseRecord(account):
             activity.tomorrow(account)
             input()
             os.system('cls')
+            break
         elif sel == "3":
             return
         else:
