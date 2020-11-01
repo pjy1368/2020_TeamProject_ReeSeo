@@ -183,7 +183,7 @@ class WorkOut:
 
             SELECT_MENU = "select menu"
             sel = input("select menu: ")
-
+            os.system('cls')
             if len(sel) >= 2 or not ('1' <= sel <= str(countOptions)):
                 os.system('cls')
                 print("Invalid input. please try again.")
@@ -306,6 +306,7 @@ class WorkOut:
                     print("Please enter digit between 1~500!")
                     input()
                     os.system('cls')
+                break
             for indexCalories in range (self.countCalories):
                 self.workOutList[index][1][indexCalories] = math.floor(self.coefficient[indexCalories] * int(consumption) * 100) / 100.0
                 
