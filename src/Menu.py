@@ -97,6 +97,7 @@ def viewAndModifyListOfExercise(account):
 def analyzeMyExerciseRecord(account):
     os.system('cls')
     activity = account.activity
+    activity.analyze(account)
     os.system('cls')
     
 def setAndViewMyExerciseGoal(account):
