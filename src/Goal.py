@@ -1,5 +1,6 @@
 import os
 import re
+import math
 from datetime import datetime
 class Goal:
     def __init__(self, account):
@@ -57,9 +58,10 @@ class Goal:
         else:
             maxCalories = (float(account.weight) * 10) * 0.8
 
+        output = "%0.2f" % maxCalories
         while True:
             print("<Setting goal>")
-            print("The maximum daily calorie is " + str(maxCalories) + " kcal. Please enter the goal daily calorie.") 
+            print("The maximum daily calorie is " + str(output) + " kcal. Please enter the goal daily calorie.") 
             print("The integer part of the value must be at least 2 digits and the decimal part must be 2 digits. At this point, the integer part must be positive")
             calories = input("-> ")
 
