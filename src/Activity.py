@@ -202,7 +202,7 @@ class Activity:
                 
                 list = finishTime.split("-")
                 now = datetime.datetime(int(list[0]), int(list[1]), int(list[2]), int(list[3]), int(list[4]))
-                if now > pre + datetime.timedelta(days=1):
+                if now >= pre + datetime.timedelta(days=2):
                     print("Finish date must not exceed one day from the start date.")
                     input()
                     os.system('cls')
@@ -246,7 +246,12 @@ class Activity:
         start = datetime.datetime(int(startTimeList[0]), int(startTimeList[1]), int(startTimeList[2]), int(startTimeList[3]), int(startTimeList[4]))
         finish = datetime.datetime(int(finishTimeList[0]), int(finishTimeList[1]), int(finishTimeList[2]), int(finishTimeList[3]), int(finishTimeList[4]))
         gapList = str((finish - start)).split(":")
-        gap = int(gapList[0]) * 60 + int(gapList[1])
+        
+        if len(gapList) == 2:
+            gap = int(gapList[0]) * 60 + int(gapList[1])
+        else:
+            gapDayList = gapList[0].split(", ")
+            gap = 1440 + int(gapDayList[1]) * 60 + int(gapList[1])
         
         self.consumptionCalories += caloriesPerMin * gap
 
