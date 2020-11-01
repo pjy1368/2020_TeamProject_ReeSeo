@@ -103,7 +103,7 @@ def analyzeMyExerciseRecord(account):
         # input is not valid => try again
         # input is valid => try again
         # input was q => don't try again
-        activity.analyze(account)
+        hasToTryAgain = activity.analyze(account)
         os.system('cls')
 
 def setAndViewMyExerciseGoal(account):
