@@ -99,7 +99,7 @@ class Goal:
             break
         f = open(filePath, "w")
         f.write(account.currentDate + "\n")
-        f.write(term + "\n")
+        f.write(str(term) + "\n")
         f.write(str(float(calories)) + "\n")
         f.close()
         self.__init__(account)
