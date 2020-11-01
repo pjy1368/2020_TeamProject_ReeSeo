@@ -73,7 +73,7 @@ class Activity:
         currentDateList = account.currentDate.split("-")
         currentDateTime = datetime.datetime(int(currentDateList[0]), int(currentDateList[1]), int(currentDateList[2]))
 
-        if re.search('^[0-9]{4}-([0-9]){2}-([0-9]){2}$', dateStr):
+        if re.search('^([0-9]{4}-([0-9]){2}-([0-9]){2})$', dateStr):
             if not self.dailyNotTimeValid(dateStr):
                 return True
 
@@ -88,11 +88,16 @@ class Activity:
 
             date = self.createDatetime(dateStr)
             for index, [date, timeInfos] in enumerate(self.dailyHistory):
-                if datetime == date:
+                if dateStr == date:
                     consumption = self.consumptionHistory[index]
                     goal = self.goalHistory[index]
-                    achievementRate = floor(consumption/goal * 100) / 100
-                    print(f"{date}: {consumption}kcal({achievementRate})%")
+                    if goal == 0:
+                        achievementRate = 100
+                    else:
+                        achievementRate = (consumption / goal) * 100
+                    achievementRateOutput = "%0.2f" % achievementRate
+                    print(f"{date}: {consumption}kcal({achievementRateOutput})%")
+                    input()
 
         elif re.search('^([0-9]{4}-([0-9]){2}-([0-9]){2}) ~ ([0-9]{4}-([0-9]){2}-([0-9]){2})$', dateStr):
             startDateStr, finishDateStr = [dateStr.strip() for dateStr in dateStr.split('~')]
@@ -137,10 +142,13 @@ class Activity:
                     
                     consumption = self.consumptionHistory[index]
                     goal = self.goalHistory[index]
-                    print(consumption)
-                    print(goal)
-                    achievementRate = floor(consumption/goal * 100)
-                    print(f"{date}: {consumption}kcal({achievementRate})%")
+                    if goal == 0:
+                        achievementRate = 100
+                    else:
+                        achievementRate = (consumption / goal) * 100
+                    achievementRateOutput = "%0.2f" % achievementRate
+                    print(f"{date}: {consumption}kcal({achievementRateOutput})%")
+            input()
         else:
             print("an error occured.")
             print("Make sure you enter spaces before and after '~'.")
@@ -408,6 +416,8 @@ class Activity:
         now = pre + datetime.timedelta(days=1)
         account.currentDate = now.strftime('%Y-%m-%d')
         account.revise([account.name, account.gender, account.birth, account.currentDate, account.height, account.weight], False)
+        account.goal.isEnd(account)
+
 
 	
     def rewriteFile(self):
@@ -448,7 +458,6 @@ class Activity:
 
     def createDatetime(self, string):
         strList = string.split('-')
-        print(strList)
         if len(strList) == 3:
             year, month, day = [int(strSplitted) for strSplitted in strList]
             return datetime.datetime(year, month , day)
