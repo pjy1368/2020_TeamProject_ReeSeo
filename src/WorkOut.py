@@ -3,7 +3,7 @@ import re
 import math
 
 class WorkOut:
-    def __init__(self):
+    def __init__(self, gender):
         
         # temporary variables for workout names
         TAKING_A_WALK = "taking a walk"
@@ -44,9 +44,15 @@ class WorkOut:
         
         
         # temporary variables for calorie consumption
-        caloriesWalk = [3.4, 4.4, 5.4, 6.3, 7.2]
-        caloriesRun = [11.4, 12.4, 14.4, 16.5, 19.6]
-        caloriesBike = [4.4, 5.4, 6.1, 6.9, 7.6]
+        if gender == "Male":
+            caloriesWalk = [3.4, 4.4, 5.4, 6.3, 7.2]
+            caloriesRun = [11.4, 12.4, 14.4, 16.5, 19.6]
+            caloriesBike = [4.4, 5.4, 6.1, 6.9, 7.6]
+        elif gender == "Female":
+            caloriesWalk = [2.4, 3.4, 4.4, 5.3, 6.2]
+            caloriesRun = [10.4, 11.4, 13.4, 15.5, 18.6]
+            caloriesBike = [3.4, 4.4, 5.1, 5.9, 6.6]
+
         defaultCalories = [caloriesWalk, caloriesRun, caloriesBike]
         
         # member constants for calorie ranges
@@ -68,9 +74,6 @@ class WorkOut:
         self.rewrite()
 
     def view(self):
-        print("<View and Modify list of exercise>")
-        self.viewWorkOutList()
-        print()
         
         OPTION1 = "1. View Exercise"
         OPTION2 = "2. Add Exercise"
@@ -78,11 +81,14 @@ class WorkOut:
         options = [OPTION1, OPTION2, OPTION3]
         countOptions = len(options)
 
-        for option in options:
-            print(option)
         
         SELECT_MENU = "select menu: "
         while True:
+            print("<View and Modify list of exercise>")
+            self.viewWorkOutList()
+            print()
+            for option in options:
+                print(option)
             sel = input(SELECT_MENU)
             os.system('cls')
             p = re.search(r"^(1|2|3)$", sel)
@@ -105,9 +111,12 @@ class WorkOut:
     # how to deal with this: 000003?
     #######
 
-    def getWorkOutSelection(self, selStr = "Input number of exercise to view"):
+    def getWorkOutSelection(self, selStr="Input number of exercise to view"):
+        
         index = 0
         while (True):
+            self.viewWorkOutList()
+
             string = input(selStr)
             length = str(len(string))
             p = re.search(r"^[0-9]{1," + str(length) + r"}$", string)
@@ -122,58 +131,67 @@ class WorkOut:
                 input()
                 os.system('cls')
                 continue
+            os.system('cls')
             break
         return index
 
 
     def viewWorkOut(self, index):
-        
         selectedWorkOut = self.workOutList[index]
         workOutName = selectedWorkOut[0]
-        print(f"Name of Exercise: {workOutName}")
-        print()
 
-        workOutCalories = selectedWorkOut[1]
-        print("Calorie consumption by section: ")
-        for calorieRange in self.calorieRanges:
-            calorie = workOutCalories[calorieRange]
-            if calorieRange == self.BELOW:
-                print(f"~{calorieRange}: {calorie}kcal")
-            elif calorieRange == self.ABOVE:
-                print(f"{calorieRange}~: {calorie}kcal")
-            else:
-                print(f"{calorieRange}~{int(calorieRange) + self.RANGE}: {calorie}kcal")
+        while True:
+            print(f"Name of Exercise: {workOutName}")
+            print()
 
-        workOutName = self.workOutList[index][0]
+            workOutCalories = selectedWorkOut[1]
+            print("Calorie consumption by section: ")
+            for calorieRange in self.calorieRanges:
+                calorie = workOutCalories[calorieRange]
+                if calorieRange == self.BELOW:
+                    print(f"~{calorieRange}: {calorie}kcal")
+                elif calorieRange == self.ABOVE:
+                    print(f"{calorieRange}~: {calorie}kcal")
+                else:
+                    print(f"{calorieRange}~{int(calorieRange) + self.RANGE}: {calorie}kcal")
 
-        # DEFAULT_WORKOUTS can't be edited
-        if workOutName in self.DEFAULT_WORKOUTS:
-            OPTION = "1. back"
-            print(OPTION)
-            SELECT_MENU = "select menu: "
-            sel = input(SELECT_MENU)
+            workOutName = self.workOutList[index][0]
 
-            while sel != '1':
-                print("Invalid input. please try again.")
+            # DEFAULT_WORKOUTS can't be edited
+            if workOutName in self.DEFAULT_WORKOUTS:
+                OPTION = "1. back"
+                print(OPTION)
+                SELECT_MENU = "select menu: "
                 sel = input(SELECT_MENU)
-            return ['3', '']
-    
-        OPTION1 = "1. edit"
-        OPTION2 = "2. delete"
-        OPTION3 = "3. back"
-        options = [OPTION1, OPTION2, OPTION3]
-        countOptions = len(options)
 
-        for option in options:
-            print(option)
+                if sel != '1':
+                    os.system('cls')
+                    print("Invalid input. please try again.")
+                    input()
+                    os.system('cls')
+                    continue
 
-        SELECT_MENU = "select menu"
-        sel = input("select menu: ")
+                return ['3', '']
+        
+            OPTION1 = "1. edit"
+            OPTION2 = "2. delete"
+            OPTION3 = "3. back"
+            options = [OPTION1, OPTION2, OPTION3]
+            countOptions = len(options)
 
-        while len(sel) >= 2 or not ('1' <= sel <= str(countOptions)):
-            print("Invalid input. please try again.")
-            sel = input(SELECT_MENU)
-        return [sel, index]
+            for option in options:
+                print(option)
+
+            SELECT_MENU = "select menu"
+            sel = input("select menu: ")
+
+            if len(sel) >= 2 or not ('1' <= sel <= str(countOptions)):
+                os.system('cls')
+                print("Invalid input. please try again.")
+                input()
+                sel = input(SELECT_MENU)
+                os.system('cls')
+            return [sel, index]
 
     def addWorkOut(self):
         if self.countWorkouts >= 10:
@@ -189,22 +207,29 @@ class WorkOut:
             if len(name) > 20:
                 print("Length of name must be 1 to 20.")
                 input()
+                os.system('cls')
             elif not p:
                 print("Wrong input! Please Enter Again!")
                 input()
+                os.system('cls')
             elif name in names:
                 print("try with a different name. You already have a workout that has the same name.")
                 input()
+                os.system('cls')
             else:
+                os.system('cls')
                 break
         consumption = ""
         while True:
             consumption = input("(65~75kg standard) Input calorie consumption per minute: ")
             p = re.search(r'^([1-9]|[1-9][0-9]|[1-4][0-9][0-9]|500)$', consumption)
             if not p:
+                os.system('cls')
                 print("Please enter digit between 1~500!")
                 input()
+                os.system('cls')
                 continue
+            os.system('cls')
             break
         
         self.workOutList.append([name, {self.calorieRanges[indexCalories]: math.floor(self.coefficient[indexCalories] * int(consumption) * 100) / 100.0 for indexCalories in range(self.countCalories)}])
@@ -212,6 +237,7 @@ class WorkOut:
         self.rewrite()
         print("Exercise added.")
         input()
+        os.system('cls')
         
         
 
@@ -220,6 +246,7 @@ class WorkOut:
         if workOutName in self.DEFAULT_WORKOUTS:
             print("this workout can't be deleted.")
             input()
+            os.system('cls')
             return
         
         while True:
@@ -231,8 +258,12 @@ class WorkOut:
             sel = input("please select an item to modify: ")
             p = re.search(r'^[1|2]$', sel)
             if not p:
+                os.system('cls')
                 print("invalid input. please try again.")
+                input()
+                os.system('cls')
                 continue
+            os.system('cls')
             break
 
 
@@ -244,17 +275,25 @@ class WorkOut:
                 name = input("Input name of exercise: ")
                 p = re.search(r'^[\w ]{1,20}$', name)
                 if len(name) > 20:
+                    os.system('cls')
                     print("Length of name must be 1 to 20.")
                     input()
+                    os.system('cls')
                 elif not p:
+                    os.system('cls')
                     print("Wrong input! Please Enter Again!")
                     input()
+                    os.system('cls')
                 elif name == workOutName:
+                    os.system('cls')
                     print("try with a different name. the previous name is the same as you typed.")
                     input()
+                    os.system('cls')
                 elif name in names:
+                    os.system('cls')
                     print("try with a different name. You already have a workout that has the same name.")
                     input()
+                    os.system('cls')
                 else:
                     break
             self.workOutList[index][0] = name
@@ -264,22 +303,28 @@ class WorkOut:
                 consumption = input("(65~75kg standard) Input calorie consumption per minute: ")
                 p = re.search(r'^([1-9]|[1-9][0-9]|[1-4][0-9][0-9]|500)$', consumption)
                 if not p:
+                    os.system('cls')
                     print("Please enter digit between 1~500!")
                     input()
+                    os.system('cls')
             for indexCalories in range (self.countCalories):
                 self.workOutList[index][1][indexCalories] = math.floor(self.coefficient[indexCalories] * int(consumption) * 100) / 100.0
                 
         self.rewrite()
+        os.system('cls')
         print("Successfully modified.")
         input()
+        os.system('cls')
 
     def deleteWorkOut(self, index):
         workOutName = self.workOutList[index][0]
         self.workOutList.pop(index)
         self.countWorkouts -= 1
         self.rewrite()
+        os.system('cls')
         print("finished deleting.")
         input()
+        os.system('cls')
         
     def rewrite(self):
         if os.path.isfile(self.filePath):
