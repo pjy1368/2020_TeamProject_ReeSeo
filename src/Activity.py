@@ -172,7 +172,8 @@ class Activity:
 
         # select a workout
         SEL_STR = "Please select an exercise: "
-        index = workOut.getWorkOutSelection(SEL_STR)
+        TITLE = "<Exercise List>"
+        index = workOut.getWorkOutSelection(SEL_STR, TITLE)
 
         list = None
         pre = None

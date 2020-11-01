@@ -107,9 +107,11 @@ class WorkOut:
 
     # Contains invalid characters!
     # The number does not exist in the list!
-    def getWorkOutSelection(self, selStr="Input number of exercise to view: "):        
+    def getWorkOutSelection(self, selStr="Input number of exercise to view: ", title = None):        
         index = 0
         while (True):
+            if title:
+                print(title)
             self.viewWorkOutList()
 
             string = input(selStr)
