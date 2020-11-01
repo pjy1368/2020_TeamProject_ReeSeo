@@ -307,8 +307,9 @@ class WorkOut:
                     input()
                     os.system('cls')
                 break
-            for indexCalories in range (self.countCalories):
-                self.workOutList[index][1][indexCalories] = math.floor(self.coefficient[indexCalories] * int(consumption) * 100) / 100.0
+            for indexCalories in range(self.countCalories):
+                key = self.calorieRanges[indexCalories]
+                self.workOutList[index][1][key] = math.floor(self.coefficient[indexCalories] * int(consumption) * 100) / 100.0
                 
         self.rewrite()
         os.system('cls')
