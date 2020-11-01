@@ -125,7 +125,7 @@ class WorkOut:
                 continue
             index = int(string) - 1
             if not (0 <= index < self.countWorkouts):
-                print("The number does not exist in the list!")
+                print("Contains invalid characters!")
                 input()
                 os.system('cls')
                 continue
