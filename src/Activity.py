@@ -254,7 +254,7 @@ class Activity:
         finish = datetime.datetime(int(finishTimeList[0]), int(finishTimeList[1]), int(finishTimeList[2]), int(finishTimeList[3]), int(finishTimeList[4]))
         gapList = str((finish - start)).split(":")
         
-        if len(gapList) == 2:
+        if gapList[0].find("day") == -1:
             gap = int(gapList[0]) * 60 + int(gapList[1])
         else:
             gapDayList = gapList[0].split(", ")
