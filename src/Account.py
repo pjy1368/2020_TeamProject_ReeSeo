@@ -22,7 +22,7 @@ class Account:
             self.height = s[4].split('\n')[0]
             self.weight = s[5].split('\n')[0]
             self.goal = Goal(self)
-            self.workOut = WorkOut()
+            self.workOut = WorkOut(self.gender)
             self.activity = Activity()
 
             f.close()
@@ -384,7 +384,7 @@ class Account:
             f.close()
 
             self.goal = Goal(self)
-            self.workOut = WorkOut()
+            self.workOut = WorkOut(self.gender)
             self.activity = Activity()    
             
     # Clear account.
