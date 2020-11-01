@@ -130,8 +130,8 @@ def subMitExerciseRecord(account):
         elif sel == "2":
             os.system('cls')
             print("The date has been changed.")
-            activity.tomorrow(account)
             print(f"Current Date: {account.currentDate}")
+            activity.tomorrow(account)
             input()
             os.system('cls')
         elif sel == "3":
