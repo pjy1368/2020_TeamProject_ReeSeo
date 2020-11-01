@@ -100,7 +100,7 @@ class WorkOut:
 
     def viewWorkOutList(self):
         for index, workOut in enumerate(self.workOutList):
-            index_on_display = index + 1
+            index_on_display = index
             workOutName = workOut[0]
             print(f"{index_on_display}. {workOutName}")
 
@@ -123,9 +123,9 @@ class WorkOut:
                 input()
                 os.system('cls')
                 continue
-            index = int(string) - 1
+            index = int(string)
             if not (0 <= index < self.countWorkouts):
-                print("Contains invalid characters!")
+                print("The number does not exist in the list!")
                 input()
                 os.system('cls')
                 continue
