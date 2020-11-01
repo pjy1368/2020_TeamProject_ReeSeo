@@ -105,19 +105,16 @@ class WorkOut:
             print(f"{index_on_display}. {workOutName}")
 
 
-    #######
-    # how to deal with this: 000003?
-    #######
-
-    def getWorkOutSelection(self, selStr="Input number of exercise to view: "):
-        
+    # Contains invalid characters!
+    # The number does not exist in the list!
+    def getWorkOutSelection(self, selStr="Input number of exercise to view: "):        
         index = 0
         while (True):
             self.viewWorkOutList()
 
             string = input(selStr)
             length = str(len(string))
-            p = re.search(r"^[0-9]{1," + str(length) + r"}$", string)
+            p = re.search(r"^[0-9]{1," + str(length) + r"}$", string) and (not re.search(r"^0.", string))
             if not p:
                 print("Contains invalid characters!")
                 input()
