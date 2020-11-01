@@ -63,6 +63,8 @@ class Goal:
             maxCalories = (float(account.weight) * 10) * 0.8
 
         output = "%0.2f" % maxCalories
+        # 소수 셋째 자리에서 둘째 자리로 반올림
+        # 5 -> 내림, 6 -> 이름
         while True:
             print("<Setting goal>")
             print("The maximum daily calorie is " + str(output) + " kcal. Please enter the goal daily calorie.") 
@@ -77,12 +79,14 @@ class Goal:
                 continue
             else:
                 numCalories = float(calories)
+                print(numCalories)
+                print(math.ceil(maxCalories * 100) / 100)
                 if numCalories < 10:
                     print("The minimum daily calorie must be larger than or equal to 10.")
                     input()
                     os.system('cls')
                     continue
-                elif numCalories > maxCalories:
+                elif numCalories > math.ceil(maxCalories * 100) / 100:
                     print("The maximum daily calorie must not be exceeded.")
                     input()
                     os.system('cls')
