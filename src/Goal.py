@@ -26,7 +26,6 @@ class Goal:
     def setGoal(self, account):
         filePath = "./user/goal.txt"
         f = open(filePath, "w")
-        f.write(account.currentDate + "\n")
 
         while True:
             print("<Setting goal>")
@@ -48,7 +47,6 @@ class Goal:
                 os.system('cls')
                 continue
             
-            f.write(term + "\n")
             os.system('cls')
             break
 
@@ -91,10 +89,12 @@ class Goal:
                 continue
             
             
-            f.write(str(float(calories)) + "\n")
             os.system('cls')
             break
-
+        
+        f.write(account.currentDate + "\n")
+        f.write(term + "\n")
+        f.write(str(float(calories)) + "\n")
         f.close()
         self.__init__(account)
 
@@ -120,6 +120,8 @@ class Goal:
             if (now - pre).days == int(self.term):
                 print("Goal is complete.\n")
                 self.view()
+                input()
+
                 os.remove("./user/goal.txt")
                 self.__init__(account)
         
