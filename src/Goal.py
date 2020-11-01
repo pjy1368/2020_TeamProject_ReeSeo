@@ -90,6 +90,9 @@ class Goal:
                 
             os.system('cls')
             break
+        print("The goal has been set normally.")
+        input()
+        os.system('cls')
         f = open(filePath, "w")
         f.write(account.currentDate + "\n")
         f.write(str(term) + "\n")
