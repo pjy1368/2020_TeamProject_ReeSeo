@@ -79,8 +79,6 @@ class Goal:
                 continue
             else:
                 numCalories = float(calories)
-                print(numCalories)
-                print(math.ceil(maxCalories * 100) / 100)
                 if numCalories < 10:
                     print("The minimum daily calorie must be larger than or equal to 10.")
                     input()
