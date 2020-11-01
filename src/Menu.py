@@ -52,7 +52,7 @@ def viewAndModifyProfile(account):
 
     list = str.split(" ")
     for i in list:
-        if len(i) != 1 or i < '1' or i > '6' or i != '2' or i != '4':
+        if len(i) != 1 or i < '1' or i > '6' or i == '2' or i == '4':
             print("Digit 1, 3, 5, 6 allowed only")
             input()
             os.system('cls')
