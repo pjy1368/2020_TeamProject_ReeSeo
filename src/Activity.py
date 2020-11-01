@@ -211,7 +211,7 @@ class Activity:
                 input()
                 return
             break
-                      
+        os.system('cls')          
 
         workOutList = workOut.workOutList
         workOutInfo = workOutList[int(index)]
@@ -248,6 +248,7 @@ class Activity:
         self.consumptionCalories += caloriesPerMin * gap
 
         print("Exercise record submitted successfully.")
+        input()
         os.system('cls')
 
     def dailyValid(self, date, pre = None): 
@@ -325,7 +326,6 @@ class Activity:
             os.system('cls')
             return False
 
-        os.system('cls')
         return True
     
     def dailyNotTimeValid(self, date):
