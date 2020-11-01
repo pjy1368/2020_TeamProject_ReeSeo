@@ -260,7 +260,7 @@ class Activity:
             gapDayList = gapList[0].split(", ")
             gap = 1440 + int(gapDayList[1]) * 60 + int(gapList[1])
         
-        self.consumptionCalories += caloriesPerMin * gap
+        self.consumptionCalories += self.roundUpWithInTwo(caloriesPerMin * gap)
 
         print("Exercise record submitted successfully.")
         input()
@@ -519,4 +519,5 @@ class Activity:
         return True
 
         
-    
+    def roundUpWithInTwo(self, num):
+        return floor(num * 100) / 100
