@@ -111,7 +111,7 @@ class WorkOut:
     # how to deal with this: 000003?
     #######
 
-    def getWorkOutSelection(self, selStr="Input number of exercise to view"):
+    def getWorkOutSelection(self, selStr="Input number of exercise to view: "):
         
         index = 0
         while (True):
@@ -163,6 +163,7 @@ class WorkOut:
                 print(OPTION)
                 SELECT_MENU = "select menu: "
                 sel = input(SELECT_MENU)
+                os.system('cls')
 
                 if sel != '1':
                     os.system('cls')
