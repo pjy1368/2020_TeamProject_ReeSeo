@@ -179,7 +179,10 @@ class Activity:
 
         while True:
             while True:
-                startTime = input("Enter exercise started time (YYYY-mm-dd-HH-MM): ")
+                startTime = input(f"Enter exercise started time (YYYY-mm-dd-HH-MM)(current date: {account.currentDate})(press q to exit): ")
+                if startTime == 'q':
+                    os.system('cls')
+                    return
 
                 if not self.dailyValid(startTime):
                     continue
@@ -195,7 +198,10 @@ class Activity:
                 break
             
             while True:
-                finishTime = input("Enter exercise finished time (YYYY-mm-dd-HH-MM): ")
+                finishTime = input(f"Enter exercise finished time (YYYY-mm-dd-HH-MM)(current date: {account.currentDate})(press q to exit): ")
+                if finishTime == 'q':
+                    os.system('cls')
+                    return
 
                 if not self.dailyValid(finishTime, pre):
                     continue
