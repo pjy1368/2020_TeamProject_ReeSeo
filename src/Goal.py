@@ -33,29 +33,21 @@ class Goal:
             print("(Enter a natural number from 1 to 30 for the goal term)")
             term = input("-> ")
 
-            p = re.search(r'^[0-9]{1,2}$', term)
-
-            if not p and len(term) == 2:
-                print("Term must be entered as a natural number.")
-                input()
-                os.system('cls')
-                continue
-
             try:
-                int(term)
+                term = int(term)
             except ValueError:
                 print("Term must be entered as a natural number.")
                 input()
                 os.system('cls')
                 continue
 
-            if len(term) < 1 or len(term) > 2:
-                print("Enter a natural number from 1 to 30 for the goal term.")
+            if term < 1:
+                print("Term must be entered as a natural number.")
                 input()
                 os.system('cls')
                 continue
-
-            if int(term) < 1 or int(term) > 30:
+                
+            if term > 30:
                 print("Enter a natural number from 1 to 30 for the goal term.")
                 input()
                 os.system('cls')
