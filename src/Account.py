@@ -52,11 +52,6 @@ class Account:
         # If no account exists, Create a folder and a "profile.txt" file.
         # Also, 'pre', 'now' are defined as 'None'
         if isNew:
-            os.mkdir("./user")
-
-            filePath = "./user/profile.txt"
-            f = open(filePath, "w")
-
             pre = None
             now = None
         else:
@@ -375,6 +370,10 @@ class Account:
         
         # If you have a new account, the personal information of the user entered above is recorded in "profile.txt".
         if isNew:
+            os.mkdir("./user")
+            filePath = "./user/profile.txt"
+            f = open(filePath, "w")
+
             f.write(self.name + "\n")
             f.write(self.gender + "\n")
             f.write(self.birth + "\n")
