@@ -3,13 +3,6 @@ import re
 import datetime
 from math import floor
 
-# DEAL WITH MARK 'ADD'
-# 'FOR TEST PURPOSE': Print out results for test purpose
-# WHAT HASN'T BEEN TESTED(DATE NEEDED)
-# 1. WHEN YOU GO TO TOMORROW AND WRITE DOWN DAILY ACTIVITIES
-# 2. THE STRUCTURE OF dailyHistory changes with multiple dates
-# 3. analyze: couldn't proceed because there're issues dealing with date class
-
 class Activity:
     # Each Daily Activity saved like this example:
     # YYYY-MM-DD\t(CALORIE_GOAL)\t(CALORIE_CONSUMPTION)\t(START TIME) ~ (FINISH TIME):WORKOUT\n
@@ -86,6 +79,7 @@ class Activity:
                 os.system('cls')
                 return True
 
+            check = False
             date = self.createDatetime(dateStr)
             for index, [date, timeInfos] in enumerate(self.dailyHistory):
                 if dateStr == date:
@@ -97,6 +91,10 @@ class Activity:
                         achievementRate = (consumption / goal) * 100
                     achievementRateOutput = "%0.2f" % achievementRate
                     print(f"{date}: {consumption}kcal({achievementRateOutput})%")
+                    check = True
+            
+            if not check:
+                print("There is no activity record on that date, so analysis is not possible.")
             input()
             return True
 
@@ -136,6 +134,7 @@ class Activity:
                 os.system('cls')
                 return True
 
+            check = False
             startDate, finishDate = [self.createDatetime(startDateStr), self.createDatetime(finishDateStr)]            
             for index, [date, timeInfos] in enumerate(self.dailyHistory):
                 if startDate <= self.createDatetime(date) <= finishDate:
@@ -148,6 +147,10 @@ class Activity:
                         achievementRate = (consumption / goal) * 100
                     achievementRateOutput = "%0.2f" % achievementRate
                     print(f"{date}: {consumption}kcal({achievementRateOutput})%")
+                    check = True
+            
+            if not check:
+                print("There is no activity record on that date, so analysis is not possible.")
             input()
             return True
         else:
