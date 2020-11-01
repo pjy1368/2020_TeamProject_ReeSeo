@@ -169,7 +169,6 @@ class Activity:
 
         # select a workout
         SEL_STR = "Please select an exercise: "
-        workOut.viewWorkOutList()
         index = workOut.getWorkOutSelection(SEL_STR)
 
         list = None
