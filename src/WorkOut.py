@@ -1,6 +1,6 @@
 import os
 import re
-import math
+from math import floor
 
 class WorkOut:
     def __init__(self, gender):
@@ -231,7 +231,7 @@ class WorkOut:
             os.system('cls')
             break
         
-        self.workOutList.append([name, {self.calorieRanges[indexCalories]: math.floor(self.coefficient[indexCalories] * int(consumption) * 100) / 100.0 for indexCalories in range(self.countCalories)}])
+        self.workOutList.append([name, {self.calorieRanges[indexCalories]: self.rountUpWithinTwo(self.coefficient[indexCalories] * int(consumption)) for indexCalories in range(self.countCalories)}])
         self.countWorkouts += 1
         self.rewrite()
         print("Exercise added.")
@@ -306,10 +306,12 @@ class WorkOut:
                     print("Please enter digit between 1~500!")
                     input()
                     os.system('cls')
-                break
-            for indexCalories in range(self.countCalories):
-                key = self.calorieRanges[indexCalories]
-                self.workOutList[index][1][key] = math.floor(self.coefficient[indexCalories] * int(consumption) * 100) / 100.0
+                else:
+                    for indexCalories in range(self.countCalories):
+                        key = self.calorieRanges[indexCalories]
+                        self.workOutList[index][1][key] = self.rountUpWithinTwo(self.coefficient[indexCalories] * int(consumption))
+                    break
+            
                 
         self.rewrite()
         os.system('cls')
@@ -334,9 +336,10 @@ class WorkOut:
             consumptions = [str(value) for value in calorieConsumption.values()]
             f.write('\t'.join([workOutName] + consumptions) + '\n')
 
-
+    def rountUpWithinTwo(self, num):
+        return floor(num * 100) / 100
     
-            
+    
 
 
 
