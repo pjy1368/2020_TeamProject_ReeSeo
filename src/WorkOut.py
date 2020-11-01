@@ -212,7 +212,7 @@ class WorkOut:
                 input()
                 os.system('cls')
             elif name in names:
-                print("try with a different name. You already have a workout that has the same name.")
+                print("Name already exists.")
                 input()
                 os.system('cls')
             else:
@@ -285,12 +285,12 @@ class WorkOut:
                     os.system('cls')
                 elif name == workOutName:
                     os.system('cls')
-                    print("try with a different name. the previous name is the same as you typed.")
+                    print("Same as existing name.")
                     input()
                     os.system('cls')
                 elif name in names:
                     os.system('cls')
-                    print("try with a different name. You already have a workout that has the same name.")
+                    print("Name already exists.")
                     input()
                     os.system('cls')
                 else:
