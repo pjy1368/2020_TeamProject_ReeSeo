@@ -118,23 +118,28 @@ def subMitExerciseRecord(account):
     while True:
         # back to main page if goal.txt doesn't exist
         if not goal.isGoal():
+            os.system('cls')
             print("You should set your goal first.")
             input()
+            os.system('cls')
             break
         
         sel = activity.submit()
         if sel == "1":
             activity.submitWorkOutRecord(account)
         elif sel == "2":
-            # ADD: change the date
+            os.system('cls')
             print("The date has been changed.")
             activity.tomorrow(account)
             print(f"Current Date: {account.currentDate}")
             input()
+            os.system('cls')
         elif sel == "3":
             return
         else:
+            os.system('cls')
             input("An error occured. Loading main page...")
+            os.system('cls')
         
 
     

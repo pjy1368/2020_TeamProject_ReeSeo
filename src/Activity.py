@@ -39,16 +39,16 @@ class Activity:
             print("1. submit exercise record")
             print("2. change to the next day")
             print("3. back")
-            # REMOVE only for test purpose
-            print(self.dailyHistory)
-            print(self.consumptionHistory)
             sel = input("select menu: ")
             # only match either 1,2 or 3
             p = re.search(r"^(1|2|3)$", sel)
             if not p:
+                os.system('cls')        
                 input("Please re-enter!")
+                os.system('cls')        
                 continue
             break
+        os.system('cls')
         return sel
     
     def analyze(self, account):
@@ -97,7 +97,8 @@ class Activity:
                         achievementRate = (consumption / goal) * 100
                     achievementRateOutput = "%0.2f" % achievementRate
                     print(f"{date}: {consumption}kcal({achievementRateOutput})%")
-                    input()
+            input()
+            return True
 
         elif re.search('^([0-9]{4}-([0-9]){2}-([0-9]){2}) ~ ([0-9]{4}-([0-9]){2}-([0-9]){2})$', dateStr):
             startDateStr, finishDateStr = [dateStr.strip() for dateStr in dateStr.split('~')]
@@ -135,7 +136,6 @@ class Activity:
                 os.system('cls')
                 return True
 
-            print(startDateStr, finishDateStr)
             startDate, finishDate = [self.createDatetime(startDateStr), self.createDatetime(finishDateStr)]            
             for index, [date, timeInfos] in enumerate(self.dailyHistory):
                 if startDate <= self.createDatetime(date) <= finishDate:
@@ -149,6 +149,7 @@ class Activity:
                     achievementRateOutput = "%0.2f" % achievementRate
                     print(f"{date}: {consumption}kcal({achievementRateOutput})%")
             input()
+            return True
         else:
             print("an error occured.")
             print("Make sure you enter spaces before and after '~'.")
@@ -207,10 +208,9 @@ class Activity:
                 break
             
             if not self.isTimeRangeValid(startTime, finishTime):
-                print("you already have a workout record in the given period.")
-                print("time is overlapped. try again.")
+                print("Existing exercise time overlaps!")
                 input()
-                continue
+                return
             break
                       
 
